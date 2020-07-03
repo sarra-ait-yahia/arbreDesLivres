@@ -1,0 +1,37 @@
+{% extends 'indexBase.html.twig' %}
+
+   {% block centre %}
+     <div class="corps" style="width:80%">
+       <div class="tableUser" style="margin-top:-30px; margin-bottom:30px;">
+       <h2 style="color:#3f5048; font-size:40px; margin-top:70px; text-align:center;">Bonjour {{ user.nom }}  {{ user.prenom }} </h2>
+
+    <table class="table" style="text-align:center;position:center;margin:auto; margin-bottom:40px;">
+        <tbody>
+            <tr>
+                <th>Votre adresse mail:</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Votre mot de passe: </th>
+                <td>***********</td>
+            </tr>
+            <tr>
+                <th>Votre nom: </th>
+                <td>{{ user.nom }}</td>
+            </tr>
+            <tr>
+                <th>Votre prénom: </th>
+                <td>{{ user.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Votre date de naissance:</th>
+                <td>{{ user.dateNaissance|date('Y-m-d')  }}</td>
+            </tr>
+        </tbody>
+    </table>
+   <button class="btnUser" style="background-color:rgb(241,239,240);"> <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier vos informations </a></button> &nbsp &nbsp
+   <button class="btnUser" style="background-color:rgb(241,239,240);"> <a href="{{ path('livre_new')}}"> Ajouter un livre </a></button> &nbsp &nbsp
+   <button class="btnUser" style="background-color:rgb(241,239,240);"> <a href="{{ path('livre_showLivres' )}}"> Vos ajouts de livres</a></button>
+       </div>
+       </div>
+{% endblock %}

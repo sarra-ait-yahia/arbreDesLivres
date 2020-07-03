@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis{% endblock %}
+
+{% block body %}
+    <h1>Avis</h1>
+
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th>AvisText</th>
+                <td>{{ avi.avisText }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ avi.note }}</td>
+            </tr>
+            <tr>
+                <th>AuteurNom</th>
+                <td>{{ avi.auteurNom }}</td>
+            </tr>
+            <tr>
+                <th>AuteurPrenom</th>
+                <td>{{ avi.auteurPrenom }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

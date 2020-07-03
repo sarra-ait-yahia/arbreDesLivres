@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+<label> Votre Nom: </label>
+{{ form_row(form.nom, {'label': false, 'attr': {'style':'width: 300px; height: 40px;  border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;  margin-bottom:10px;'}}) }}
+<label>Votre prénom: </label>
+{{ form_row(form.prenom, {'label': false, 'attr': {'style':'width: 300px; height: 40px;  border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;'}}) }}
+<label> Votre adresse mail: </label>
+{{ form_row(form.email, {'label': false, 'placeholder':'******','attr': {'style':'width: 300px; height: 40px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;' }}) }}
+<label>Votre mot de passe: </label>
+{{ form_row(form.password, {'label': false, 'attr': {'style':'width: 300px; height: 40px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;'}}) }}
+<label>Votre date de naissance : </label>
+{{ form_row(form.dateNaissance, {'label': false, 'attr': {'style':'width: 300px; height: 40px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;'}}) }}
+    <button class="btnUser" style ="margin-left:-10px; margin-top:10px; margin-bottom:20px;  background-color:rgb(241,239,240);">{{ button_label|default('Mettre à jour') }}</button>
+{{ form_end(form) }}
+<a style="margin-left:300px; font-family: Spinnaker; font-size: 20px;font-weight:bold; color:rgb(63,80,72);" href="{{ path('showUser', {'id': app.user.id}) }}" >Retour au profil</a>
+

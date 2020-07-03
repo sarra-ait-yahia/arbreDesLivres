@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+<label>Votre nom: </label><br>
+{{ form_row(form.nom, {
+    label: false
+}) }}
+<label>Votre prénom: </label><br>
+{{ form_row(form.prenom, {
+    label: false
+}) }}
+<label>Adresse mail: </label><br>
+{{ form_row(form.email, {
+    label: false
+}) }}
+<label>Message: </label><br>
+{{ form_row(form.message, {'label': false, 'attr': {'style':'width: 325px; height: 150px; border-width:2px; border-radius: 10px; border-color:rgb(63,80,72);
+    background-color:rgb(241,239,240); margin-bottom:30px;'}}) }}
+    <button class="btn">{{ button_label|default('Envoyer') }}</button>
+{{ form_end(form) }}

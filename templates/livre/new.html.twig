@@ -1,0 +1,11 @@
+{% extends 'indexBase.html.twig' %}
+
+
+{% block centre %}
+    <div class="corps" style="width:80%;">
+    <h2 style="color:#3f5048; font-size:40px; margin-top:70px; text-align:center;">Ajoutez un livre</h2>
+<div style="margin-bottom:100px;">
+    {{ include('livre/_form.html.twig') }}
+</div>
+    </div>
+{% endblock %}

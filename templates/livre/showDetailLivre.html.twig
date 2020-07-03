@@ -1,0 +1,51 @@
+{% extends 'LivreBase.html.twig' %}
+
+
+{% block centre %}
+
+    <div class="corps" style="width:70%;">
+    <h2 style="color:#3f5048; font-size:40px; margin-top:70px; text-align:center; margin-bottom:50px;">Présentation du livre:</h2>
+
+    <table class="table" style="position:center;margin:auto;font-family:Spinnaker; font-size:19px; " >
+        <tbody>
+
+            <tr>
+                <td  style="text-align:right;"><b>Nom de l'auteur:</b></td>
+            <td style="text-align:left;">{{ livre.auteur }} </td>
+            </tr>
+            {% if livre.editeur is not null %}
+            <tr>
+                <td style="text-align:right;"><b> L'éditeur:</b> </td>
+                <td style="text-align:left;"> {{ livre.editeur }} </td>
+            </tr>
+             {% endif %}
+            <tr>
+                <td style="text-align:right;"><b>Ajouté par: </b></td>
+                <td style="text-align:left;"> {{ livre.idUser.nom }} {{ livre.idUser.prenom }}</td>
+            </tr>
+
+            <tr>
+                <td style="text-align:right;"><b>Type du livre: </b></td>
+                <td style="text-align:left;">{{ livre.type }} </td>
+            </tr>
+
+            <tr>
+                <td style="text-align:right;"> <b>Année:</b></td>
+                <td style="text-align:left;">{{ livre.annee|date('Y') }} </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="text-align: center;"><b>Résumé:</b> </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">{{ livre.resume }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;" > <button class="btnUser" style="margin-top:50px; margin-bottom:40px;background-color:rgb(241,239,240);"><a href="{{ path('showLivre', {'id': livre.id}) }}" >Retour à l'arbre du livre</a>
+                    </button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    </div>
+{% endblock %}

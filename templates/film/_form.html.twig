@@ -1,0 +1,61 @@
+{{ form_start(form,{'action': path('film_new',{'id':id})}) }}
+<table style="margin-top:-20px;">
+    <tr>
+        <td>
+            <label> Votre nom: </label>
+        <td>
+            <label> Votre prénom: </label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_row(form.RapporteurNom, {'label': false, 'attr': {'style':'width: 280px; height: 30px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;background-color:rgb(245,243,244);'}}) }}
+        </td>
+        <td>
+            {{ form_row(form.RapporteurPrenom, {'label': false, 'attr': {'style':'width: 280px; height: 30px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; background-color:rgb(245,243,244);'}}) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label> Nom du film: </label>
+        <td>
+            <label> Nom du réalisateur: </label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_row(form.intitule, {'label': false, 'attr': {'style':'width: 280px; height: 30px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;  background-color:rgb(245,243,244);'}}) }}
+        </td>
+        <td>
+            {{ form_row(form.realisateur, {'label': false, 'attr': {'style':'width: 280px; height: 30px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;background-color:rgb(245,243,244);'}}) }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <label> Résumé: </label>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            {{ form_row(form.resume, {'label': false, 'attr': {'style':'width: 580px; height: 70px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;  background-color:rgb(245,243,244);'}}) }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:left;">
+            <label> Année de production: </label>
+        </td>
+    </tr>
+    <tr> <td colspan="2" style="text-align:center;">
+            {{ form_row(form.annee, {'label': false, 'attr': {'style':'width: 580px; height: 30px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;  background-color:rgb(245,243,244);'}}) }}
+        </td> </tr>
+    <tr> <td colspan="2" style="text-align:center;">
+            <button class="enregistrer" >{{ button_label|default('Enregistrer') }}</button>
+        </td> </tr>
+</table>
+{{ form_end(form) }}

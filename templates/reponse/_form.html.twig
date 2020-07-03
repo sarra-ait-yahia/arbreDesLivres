@@ -1,0 +1,30 @@
+{{ form_start(form,{'action': path('reponse_new',{'idLivre':livre.id, 'idQuestion':question.id})}) }}
+<table style="margin-top:40px;margin-left:0px;">
+    <tr>
+        <td style="text-align:left;">
+            <b> Votre nom: </b>
+            {{ form_row(form.auteurNom, {'label': false, 'attr': {'style':'width: 220px; height: 30px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:2px;background-color:rgb(245,243,244);margin-bottom:-30px;'}}) }}
+        </td>
+        <td style="text-align:left;">
+            <b > Votre prénom: </b>
+            {{ form_row(form.auteurPrenom, {'label': false, 'attr': {'style':'width: 220px; height: 30px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:2px; background-color:rgb(245,243,244);margin-bottom:-30px;'}}) }}
+        </td>
+        <td style="text-align:left;">
+            <b> Votre adresse mail: </b>
+            {{ form_row(form.mail, {'label': false, 'attr': {'style':'width: 220px; height: 30px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:2px;  background-color:rgb(245,243,244); margin-bottom:-30px;'}}) }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align:center;">
+            <b> Votre réponse: </b>
+            {{ form_row(form.reponse, {'label': false, 'attr': {'style':'width: 790px; height: 90px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:2px;  background-color:rgb(245,243,244); margin-bottom:-20px;'}}) }}
+        </td> </tr>
+    <tr> <td colspan="3" style="text-align:center;">
+            <button class="enregistrer" >{{ button_label|default('Enregistrer') }}</button>
+        </td> </tr>
+</table>
+{{ form_end(form) }}

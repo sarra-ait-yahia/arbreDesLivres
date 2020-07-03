@@ -1,0 +1,46 @@
+{% extends 'indexBase.html.twig' %}
+
+
+{% block centre %}
+    <div class="corps">
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <h2 style="color:#3f5048; font-size:40px; margin-top:70px;text-align:center;">Inscrivez-vous</h2>
+
+    {{ form_start(registrationForm) }}
+       <label>Votre nom: </label><br>
+       {{ form_row(registrationForm.nom, {
+           label: false
+       }) }}
+     <br>
+      <label>Votre prénom: </label><br>
+       {{ form_row(registrationForm.prenom, {
+           label: false
+       }) }}
+       <br>
+       <label>Votre date de naissance: </label><br>
+       {{ form_row(registrationForm.dateNaissance, {
+           label: false
+       }) }}
+        <br>
+         <label>Votre adresse mail:  </label><br>
+        {{ form_row(registrationForm.email, {
+            label: false
+        }) }}
+        <br>
+        <label>Mot de passe:  </label><br>
+        {{ form_row(registrationForm.plainPassword, {
+            label: false
+        }) }}
+       <br>
+        <label>Acceptez les termes:  </label><br>
+        {{ form_row(registrationForm.agreeTerms, {
+            label: false
+        }) }}
+
+        <button type="submit" class="inscrire">S'inscrire</button>
+    {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

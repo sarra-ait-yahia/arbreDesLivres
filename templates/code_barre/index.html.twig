@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CodeBarre index{% endblock %}
+
+{% block body %}
+    <h1>CodeBarre index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for code_barre in code_barres %}
+            <tr>
+                <td>{{ code_barre.id }}</td>
+                <td>{{ code_barre.code }}</td>
+                <td>
+                    <a href="{{ path('code_barre_show', {'id': code_barre.id}) }}">show</a>
+                    <a href="{{ path('code_barre_edit', {'id': code_barre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('code_barre_new') }}">Create new</a>
+{% endblock %}

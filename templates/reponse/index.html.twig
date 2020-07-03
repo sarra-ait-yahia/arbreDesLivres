@@ -1,0 +1,74 @@
+{% extends 'LivreBase.html.twig' %}
+
+{% block centre %}
+    <h6> Question:</h6>
+    <div class="corps2" >
+        <div class="bandeauPetit"> <b>Ajouté le {{ question.dateEcriture|date ('Y-m-d à  H:i') }}  par {{ question.auteurNom }}&nbsp;{{ question.auteurPrenom }}</b></div>
+        <div class="zoneDeux"><b>Adresse mail :</b> {{ question.mail }} </div>
+        <div class = "LeText"> {{ question.question }}</div>
+        <div class="reponse">{% set size = question.reponses | length %}
+                <b>Nombre de réponses : {{ size }}</b>
+        </div>
+    </div>
+    <h6>Réponses:</h6>
+    <div>
+    {% for reponse in reponses %}
+        <div class="corps2">
+            <div class="bandeauPetit"> <b>Ajouté le {{ reponse.dateEcriture|date ('Y-m-d à  H:i') }}  par {{ reponse.auteurNom }}&nbsp;{{ question.auteurPrenom }}</b></div>
+            <div class="zoneDeux"><b>Adresse mail :</b> {{ reponse.mail }} </div>
+            <div class = "LeText"> {{ reponse.reponse }}</div>
+         </div>
+        {% else %}
+    <div class="corps2" >
+       <b style="margin-left:250px;font-family: Spinnaker;font-size:20px;"> Aucune réponse à cette question n'a été ajouté</b>
+    </div>
+    {% endfor %}
+
+    <br> <br>
+    <b class="paginate"> {{ knp_pagination_render(reponses) }}
+</b>
+    </div>
+    <br> <br>
+        <button class="repondre" style="margin-left:530px;"><a class="modal-trigger" data-title="Ajouter une réponse" data-target="reponse_new" > Répondre </a></button>
+
+        <div id="modal1" class="corps2 modal"  style="display:none; width:72.5%; margin-top:40px;">
+            <div class="modal-title">
+            </div>
+            <div class="modal-content">
+            </div>
+        </div>
+
+
+    <button class="btnUser" style="margin-left:285px;margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240);"><a href="{{ path('showLivre', {'id': livre.id}) }}" >Retour à l'arbre du livre</a> </button>
+    <button class="btnUser" style="margin-left:100px;margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240);"><a href="{{ path('question_index',{'idLivre':livre.id}) }}" >Retour à la liste des questions</a> </button>
+
+    </div>
+
+        {% endblock %}
+
+        {% block javascripts %}
+        <script>
+            $(document).ready(function() {
+//On écoute le "click" sur le bouton ayant la classe "modal-trigger"
+
+                $('.modal-trigger').click(function () {
+                    var idLivre="{{ livre.id}}";
+                    var idQuestion="{{ question.id}}";
+                    var path= $(this).attr('data-target');
+                    var titre= $(this).attr('data-title');
+                    $('.modal-title').html(titre);
+                    var url = Routing.generate(path,{'idLivre':idLivre, 'idQuestion':idQuestion}) ;
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        success: function (data) {
+                            //on injecte le html dans la modale
+                            $('.modal-content').html(data);
+                            //on ouvre la modale
+                            $('#modal1').modal('show');
+                        }});
+                })
+            });
+        </script>
+        {% endblock %}
+

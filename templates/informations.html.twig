@@ -1,0 +1,37 @@
+{% extends 'indexBase.html.twig' %}
+
+    {% block centre %}
+        <div class="corps" style="width:80%;">
+            <h2>Informations légales</h2>
+            <div class="text">
+                <p> &nbsp; &nbsp;Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance en l’économie
+                    numérique, il est précisé aux utilisateurs du site arbreDesLivres.fr l’identité des différents intervenants
+                    dans le cadre de sa réalisation et de son suivi.</p>
+                <p>
+                    <h4>&nbsp; &nbsp;Edition du site:</h4>
+                &nbsp; &nbsp; Le site arbreDesLivres.fr est édité par des étudiants de l'université de Paris 1 Panthéon Sorbonne dans le cadre de
+                réalisation d'un projet universitaire. Les responsables du site suivent une formation Miage par voie de l'apprentissage
+                dans le centre Pierre-Mendès-France situé 90 rue de Tolbiac, 75013 Paris.
+                </p>
+                <p>
+                    <h4>&nbsp; &nbsp;Hébergeur:</h4>
+                &nbsp;Le site arbreDesLivres n'a pas encore été hébérgé.
+                </p>
+                <p>
+                    <h4> &nbsp; &nbsp;Nous contacter:</h4>
+                Par email : arbreDuLivre@etu.univ-paris1.fr
+                </p>
+                <p>
+                    <h4> &nbsp; &nbsp;Données et ressources:</h4>
+                &nbsp; &nbsp;Le site conservera dans ses systèmes informatiques et dans des conditions raisonnables de sécurité
+                vos informations personnelles saisies pour la création de compte, ainsi que les différentes ressources ajoutées pour chaque livre.
+                <br>
+                &nbsp; &nbsp; Conformément aux dispositions de la loi 78-17 du 6 janvier 1978 modifiée, l’Utilisateur dispose d’un droit d’accès,
+                de modification et de suppression des informations collectées par l'arbre des livres. Pour exercer ce droit, il reviendra à
+                l’utilisateur d’envoyer un message via la page <a href="{{ path('contact_new') }}" >"Nous contacter"</a>.
+            </p>
+            </div>
+        </div>
+
+    {% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends 'indexBase.html.twig' %}
+
+   {% block centre %}
+        <div class="pageCenter">
+            <p class="alert">{{ message }}</p>
+            <div class="form-group">
+
+                {{ form_start(searchFormTitre) }}
+                {{ form_row(searchFormTitre.titre, {'label': " ", 'attr': {'style':'width: 320px; height: 35px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; margin-left:30px; margin-bottom:10px;','placeholder': '  Saisissez le titre du livre '}}) }}
+                <button class="btn">Chercher le livre par son titre</button>
+                {{ form_end(searchFormTitre) }}
+
+                <p style="color:white; text-shadow:#3f5048 1px 1px, #3f5048 -1px 1px, #3f5048 -1px -1px, #3f5048 1px -1px;font-size:24px;font-weight:bold;text-align:center;  "> Où </p>
+                {{ form_start(searchFormCode) }}
+                {{ form_row(searchFormCode.code, {'label': " ", 'attr': {'class':'code','style':'width: 320px; height: 35px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; margin-left:30px; margin-bottom:10px; ','placeholder': '  Scanner le code barre du livre '}}) }}
+                <button class="btn">Chercher le livre par son code-barre</button>
+                {{ form_end(searchFormCode) }}
+            </div>
+        </div>
+    {% endblock %}
+

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Arbre des livres{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/indexStyle.css') }}"/>{% endblock %}
+{% block body %}
+    <div class="menu">
+        <ul>
+            <li><a href="{{ path('mainPage') }}">Accueil </a></li>
+            <li> <a href="{{ path('showApropos') }}"> À propos</a></li>
+            {% if app.user  %}
+            <li><a href="{{ path('showUser', {'id': app.user.id}) }}">Votre Profil </a></li>
+            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            {% else %}
+            <li><a href="{{ path('app_login') }}">Se connecter </a></li>
+            <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="bandeau">
+        <h1>Bienvenue à l'arbre des livres</h1>
+    </div>
+    {% block centre %}
+    {% endblock %}
+    <div class="footer">
+        <ul class="menufooter"> <li style="color:white"> Nous suivre  &nbsp</a> <a href="{{ path('facebookUrl') }}" ><img src="{{ asset('build/images/fbLogo.png') }}" /> </a> <a href="{{ path('twitterUrl') }}"><img src="{{ asset('build/images/twtLogo.png') }}" /> </a> </li>  <li> <a href="{{ path('showApropos') }}" style="color:white">| &nbsp &nbsp  &nbsp À propos</a></li>  <li> <a href="{{ path('Informations') }}" style="color:white"> | &nbsp &nbsp &nbsp Informations légales </a> </li>   <li><a href="{{ path('contact_new') }}" style="color:white"> | &nbsp &nbsp &nbsp Contacter nous </a> </li> </ul>
+        <br> <br> <p class="copyright"> @Copyright 2020 </p>
+    </div>
+{% endblock %}

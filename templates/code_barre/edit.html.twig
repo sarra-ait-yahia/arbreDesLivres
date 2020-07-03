@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit CodeBarre{% endblock %}
+
+{% block body %}
+    <h1>Edit CodeBarre</h1>
+
+    {{ include('code_barre/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('code_barre_index') }}">back to list</a>
+
+    {{ include('code_barre/_delete_form.html.twig') }}
+{% endblock %}

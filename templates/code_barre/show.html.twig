@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CodeBarre{% endblock %}
+
+{% block body %}
+    <h1>CodeBarre</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ code_barre.id }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ code_barre.code }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('code_barre_index') }}">back to list</a>
+
+    <a href="{{ path('code_barre_edit', {'id': code_barre.id}) }}">edit</a>
+
+    {{ include('code_barre/_delete_form.html.twig') }}
+{% endblock %}

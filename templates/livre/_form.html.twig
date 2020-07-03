@@ -1,0 +1,72 @@
+{{ form_start(form) }}
+<table style="width:40%; position:center; margin:auto;">
+    <tr style="margin-top:-10px;">
+    <td><label> Titre du livre: </label></td>
+     <td><label >L'auteur du livre: </label></td>
+</tr>
+    <tr>
+        <td>{{ form_row(form.titre, {'label': false, 'attr': {'style':'width: 300px; height: 40px;  border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; margin-top:-60px; margin-bottom:-50px;'}}) }}</td>
+        <td>{{ form_row(form.auteur, {'label': false, 'attr': {'style':'width: 300px; height: 40px;  border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; margin-top:-60px; margin-bottom:-50px;'}}) }}</td>
+    </tr>
+    <tr>
+        <td><label > Le type du livre : </label></td>
+        <td><label>Editeur: </label></td>
+    </tr>
+    <tr>
+        <td>{{ form_row(form.type, {'label': false, 'placeholder':'******','attr': {'style':'width: 300px; height: 40px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; margin-top:-60px; margin-bottom:-50px;' }}) }}</td>
+        <td>{{ form_row(form.editeur, {'label': false, 'attr': {'style':'width: 300px; height: 40px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;margin-top:-60px; margin-bottom:-50px;'}}) }}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><label>Date de sortie : </label></td>
+    </tr>
+    <tr>
+        <td colspan="2"><label>{{ form_row(form.annee, {'label': false, 'attr': {'style':'width: 680px; height: 40px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; margin-top:-60px;margin-bottom:-1px;'}}) }} </label></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:center;"><label style="color:rgb(77,64,43);">Ajouter un son pour ce livre </label></td>
+    </tr>
+
+{% for son in form.sons %}
+    <tr>
+        <td colspan="2" style="text-align: left;"><label>Titre du morceau: </label></td>
+    </tr>
+    <tr>
+        <td> {{ form_row(son.nom, {'label': false, 'attr': {'style':'width: 300px; height: 40px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; margin-top:-60px; margin-bottom:-50px;' }}) }}</td>
+        <td colspan="2" style="text-align:center;"> {{ form_row(son.son, {'label': false,'attr': {'class': 'file', 'style': 'background-color:white;font-family;opacity: 1; font-weight:bold;font-size:18px; margin-top:-60px; margin-bottom:-50px;'} }) }}
+        </td>
+    </tr>
+   <tr>
+       <td colspan="2"> <label>Description du morceau: </label></td>
+   </tr>
+    <tr>
+        <td colspan="2">  {{ form_row(son.description,  {'label': false, 'type':'hidden','attr': {'style':'width: 680px; height: 80px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;margin-top:-10px;background-color:rgb(241,239,240);'}}) }}</td>
+    </tr>
+    {{ form_row(son.auteurNom, {'label': false, 'type':'hidden'}) }}
+    {{ form_row(son.auteurPrenom, {'label': false,'type':'hidden'}) }}
+{% endfor %}
+
+    <tr>
+        <td colspan="2"><label>Résumé du livre : </label></td>
+    </tr>
+
+    <tr>
+        <td colspan="2">{{ form_row(form.resume, {'label': false, 'attr': {'style':'width: 680px; height: 80px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; margin-top:-10px;background-color:rgb(241,239,240);'}}) }}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2" style="text-align: center;"><button class="btnUser" style ="margin-left:-10px; margin-top:10px; margin-bottom:20px;">{{ button_label|default('Ajouter le livre') }}</button></td>
+    </tr>
+    {{ form_end(form) }}
+    <tr>
+        <td colspan="2"  style="text-align:center;"><a style=" font-family: Spinnaker; font-size: 20px;font-weight:bold; color:rgb(63,80,72);" href="{{ path('showUser', {'id': app.user.id}) }}"  >Retour au profil</a></td>
+    </tr>
+
+</table>

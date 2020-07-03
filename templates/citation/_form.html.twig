@@ -1,0 +1,44 @@
+{{ form_start(form,{'action': path('citation_new',{'id':id})}) }}
+<table>
+ <tr>
+  <td>
+   <label> Votre nom: </label>
+  <td>
+   <label> Votre prénom: </label>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   {{ form_row(form.rapporteurNom, {'label': false, 'attr': {'style':'width: 280px; height: 35px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; background-color:rgb(245,243,244); '}}) }}
+  </td>
+  <td>
+   {{ form_row(form.rapporteurPrenom, {'label': false, 'attr': {'style':'width: 280px; height: 35px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; background-color:rgb(245,243,244);'}}) }}
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2">
+   <label> Auteur de la citation: </label>
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2">
+   {{ form_row(form.auteur, {'label': false, 'attr': {'style':'width: 580px; height: 35px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px;  margin-bottom:10px; background-color:rgb(245,243,244);'}}) }}
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2" style="text-align:center;">
+   <label> La citation: </label>
+  </td>
+ </tr>
+ <tr> <td colspan="2" style="text-align:center;">
+   {{ form_row(form.text, {'label': false, 'attr': {'style':'width: 580px; height: 80px; border-radius: 10px; border-color:rgb(63,80,72);
+    border-width:3px; background-color:rgb(245,243,244);'}}) }}
+  </td> </tr>
+ <tr> <td colspan="2" style="text-align:center;">
+   <button class="enregistrer" >{{ button_label|default('Enregistrer') }}</button>
+  </td> </tr>
+</table>
+{{ form_end(form) }}
