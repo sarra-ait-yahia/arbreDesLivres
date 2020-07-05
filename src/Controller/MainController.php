@@ -45,12 +45,27 @@ class MainController extends AbstractController
             $titre=$livre->getTitre().'MainSon';
             $replacedTitre = preg_replace("#[ ,;:']+#", "", $titre);
             $pathSon='uploads/'.$replacedTitre.'.mpga';
-            $feuille=count($livre->getCodesBarre())+count($livre->getTousLesAvis())+count($livre->getCitations())+count($livre->getEvenements())+
-                +count($livre->getConseils())+count($livre->getQuestions());
-            $fruit=count($livre->getFilms())+count($livre->getSons())+count($livre->getImages())+count($livre->getDocuments());
+            $nbavis=count($livre->getTousLesAvis());
+            $nbquestion=count($livre->getQuestions());
+            $nbcodebarre=count($livre->getCodesBarre());
+            $nbconseil=count($livre->getConseils());
+            $nbevenement=count($livre->getEvenements());
+            $nbcitation=count($livre->getCitations());
+            $nbimage=count($livre->getImages());
+            $nbfilm=count($livre->getFilms());
+            $nbdocument=count($livre->getDocuments());
+            $nbson=count($livre->getSons());
             return  $this->render('livre/index.html.twig',[
-                'feuille'=>$feuille,
-                'fruit'=>$fruit,
+                'nbavis'=>$nbavis,
+                'nbquestion'=>$nbquestion,
+                'nbcodebarre'=>$nbcodebarre,
+                'nbconseil'=>$nbconseil,
+                'nbevenement'=>$nbevenement,
+                'nbcitation'=>$nbcitation,
+                'nbimage'=>$nbimage,
+                'nbfilm'=>$nbfilm,
+                'nbdocument'=>$nbdocument,
+                'nbson'=>$nbson,
                 'livre'=>$livre,
                 'son'=>$pathSon,
             ]);
@@ -74,12 +89,27 @@ class MainController extends AbstractController
             $titre=$livre->getTitre().'MainSon';
             $replacedTitre = preg_replace("#[ ,;:']+#", "", $titre);
             $pathSon='uploads/'.$replacedTitre.'.mpga';
-            $feuille=count($livre->getCodesBarre())+count($livre->getTousLesAvis())+count($livre->getCitations())+count($livre->getEvenements())+
-                +count($livre->getConseils())+count($livre->getQuestions());
-            $fruit=count($livre->getFilms())+count($livre->getSons())+count($livre->getImages())+count($livre->getDocuments());
+            $nbavis=count($livre->getTousLesAvis());
+            $nbquestion=count($livre->getQuestions());
+            $nbcodebarre=count($livre->getCodesBarre());
+            $nbconseil=count($livre->getConseils());
+            $nbevenement=count($livre->getEvenements());
+            $nbcitation=count($livre->getCitations());
+            $nbimage=count($livre->getImages());
+            $nbfilm=count($livre->getFilms());
+            $nbdocument=count($livre->getDocuments());
+            $nbson=count($livre->getSons());
             return  $this->render('livre/index.html.twig',[
-                'feuille'=>$feuille,
-                'fruit'=>$fruit,
+                'nbavis'=>$nbavis,
+                'nbquestion'=>$nbquestion,
+                'nbcodebarre'=>$nbcodebarre,
+                'nbconseil'=>$nbconseil,
+                'nbevenement'=>$nbevenement,
+                'nbcitation'=>$nbcitation,
+                'nbimage'=>$nbimage,
+                'nbfilm'=>$nbfilm,
+                'nbdocument'=>$nbdocument,
+                'nbson'=>$nbson,
                 'livre'=>$livre,
                 'son'=>$pathSon,
             ]);

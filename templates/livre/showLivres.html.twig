@@ -1,26 +1,22 @@
 {% extends 'indexBase.html.twig' %}
 
-
 {% block centre %}
-
-    <div class="corps" style="width:80%;">
     <h2 style="color:#3f5048; font-size:40px; margin-top:70px; text-align:center; margin-bottom:50px;">La liste des livres ajoutés</h2>
-
-    <table class="table" style="width:80%;position:center;margin:auto;font-family:Spinnaker; font-size:19px; " >
-        <tbody>
+    <div class="corps" style="width:90%; font-family:Spinner; font-size:20px; margin-bottom:10px; padding-top:50px;">
         {% for livre in livres %}
-        <tr>
-            <tr>
-            <td><li>{{ livre.titre }} écrit par {{ livre.auteur }}</li> </td>
-            <td><li style="list-style-type: none; font-weight:bold; "><a href="{{ path('showLivre', {'id': livre.id}) }}">Afficher l'arbre du livre</a> </li></td>
-            </tr>
+
+            <p style=" text-align:center; float:left;"> <div class="cercle"></div> &nbsp; <b style="color:rgb(219,91,67);"> {{ livre.titre }} </b> <b>écrit par {{ livre.auteur }}</b>
+            <b  style="display:inline-block;float:right;">
+            <a href="{{ path('livre_edit', {'id': livre.id}) }}" >Modifier</a>  &nbsp; &nbsp;
+            <a href="{{ path('showLivre', {'id': livre.id}) }}" target="_blank" >Afficher son arbre </a> </b></p>
+            <p> &nbsp; &nbsp; &nbsp; Ajouté le {{ livre.dateEcriture|date ('Y-m-d à  H:i') }} </p>
         {% else %}
-            <tr>
-                <td colspan="2" style="text-align:center;font-weight:bold; font-family:Spinnaker; font-size:20px;">Vous n'avez ajouté aucun livre !</td>
-            </tr>
+            <br> <b style="width:80%;height:100px; margin-left:430px; font-size:20px;">Vous n'avez ajouté aucun livre !</b>
         {% endfor %}
-        </tbody>
-    </table>
-    <button class="btnUser" style="margin-left:200px; margin-top:50px; margin-bottom:40px;background-color:rgb(241,239,240);"><a href="{{ path('showUser', {'id': app.user.id}) }}" >Retour au profil</a> </button> <button class="btnUser" style="background-color:rgb(241,239,240);"> <a href="{{ path('livre_new')}}">Ajouter un livre</a> </button>
+        <br> <br>
+        <b class="paginate"> {{ knp_pagination_render(livres) }}
+        </b>
     </div>
+    <button class="btnUser" style="margin-left:330px; margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240);"><a href="{{ path('showUser', {'id': app.user.id}) }}" >Retour au profil</a> </button> <button class="btnUser" style="background-color:rgb(241,239,240);"> <a href="{{ path('livre_new')}}">Ajouter un livre</a> </button>
+
 {% endblock %}

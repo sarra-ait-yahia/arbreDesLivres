@@ -33,6 +33,27 @@ class CodeBarre
     private $RapporteurNom;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateEcriture;
+
+    /**
+     * @return mixed
+     */
+    public function getDateEcriture()
+    {
+        return $this->dateEcriture;
+    }
+
+    /**
+     * @param mixed $dateEcriture
+     */
+    public function setDateEcriture($dateEcriture): void
+    {
+        $this->dateEcriture = $dateEcriture;
+    }
+
+    /**
      * @return mixed
      */
     public function getRapporteurPrenom()

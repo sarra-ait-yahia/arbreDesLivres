@@ -16,9 +16,7 @@ class SonType extends AbstractType
     {
         $builder
             ->add('nom',TextType::class)
-            ->add('son',FileType::class, array(
-                'label' => 'Charger le son'
-            ))
+            ->add('son',FileType::class, array('data_class' => null))
             ->add('auteurNom',TextType::class)
             ->add('auteurPrenom',TextType::class)
             ->add('description',TextareaType::class)

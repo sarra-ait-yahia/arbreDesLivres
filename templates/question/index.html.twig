@@ -6,7 +6,7 @@
         <div class="corps2"> <a href="{{ path('reponse_index',{'idLivre':livre.id, 'idQuestion':question.id}) }}">
             <div class="bandeauPetit"> <b>Ajouté le {{ question.dateEcriture|date ('Y-m-d à  H:i') }}  par {{ question.auteurNom }}&nbsp;{{ question.auteurPrenom }}</b></div>
             <div class="zoneDeux"><b>Adresse mail :</b> {{ question.mail }} </div>
-            <div class = "LeText"> {{ question.question }}</div>
+            <div class = "LeText"> {{ question.question|nl2br }}</div>
             <div class="reponse">{% set size = question.reponses | length %}
                     <b>Nombre de réponses : {{ size }}</b> <br>
             </div>

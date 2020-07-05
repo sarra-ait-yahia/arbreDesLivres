@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Image;
+use App\Entity\Livre;
 use App\Form\ImageType;
 use App\Repository\ImageRepository;
+use App\Repository\LivreRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,23 +20,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class ImageController extends AbstractController
 {
     /**
-     * @Route("/", name="image_index", methods={"GET"})
+     * @Route("/{id}", name="image_index", methods={"GET"})
      */
-    public function index(ImageRepository $imageRepository): Response
+    public function index(ImageRepository $imageRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
     {
+        $livreId=$request->attributes->get('id');
+        $livre= $repo->findOneBy(array('id' =>$livreId ));
+        $donnees=$imageRepository->findBy(array('idLivre'=>$livre));
+        $image=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            15 // Nombre de résultats par page
+        );
         return $this->render('image/index.html.twig', [
-            'images' => $imageRepository->findAll(),
+            'images' =>$image,
+            'livre' => $livre,
         ]);
+
     }
 
     /**
-     * @Route("/{id}", name="image_show", methods={"GET"})
+     * @Route("/{idLivre}/{id}", name="image_show", methods={"GET","POST"})
      */
     public function show(Image $image): Response
     {
-        return $this->render('image/show.html.twig', [
-            'image' => $image,
-        ]);
+        return new BinaryFileResponse('../public/uploads/'.$image->getImage());
     }
 
     /**

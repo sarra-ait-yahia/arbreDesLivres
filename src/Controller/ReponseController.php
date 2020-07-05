@@ -52,11 +52,17 @@ class ReponseController extends AbstractController
 
         $reponse = new Reponse();
         $form = $this->createForm(ReponseType::class, $reponse);
+        if($this->getUser()){
+            $form->get('auteurNom')->setData($this->getUser()->getNom());
+            $form->get('auteurPrenom')->setData($this->getUser()->getPrenom());
+            $form->get('mail')->setData($this->getUser()->getEmail());
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reponse->setIdLivre($livre);
             $reponse->setIdQuestion($question);
+            $reponse->setReponse(str_replace("<br />","\n",  nl2br( $form->get('reponse')->getData())));
             $reponse->setDateEcriture(new \DateTime('now'));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($reponse);

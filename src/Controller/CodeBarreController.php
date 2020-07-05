@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\CodeBarre;
 use App\Form\CodeBarreType;
 use App\Repository\CodeBarreRepository;
+use App\Repository\LivreRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +18,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class CodeBarreController extends AbstractController
 {
     /**
-     * @Route("/", name="code_barre_index", methods={"GET"})
+     * @Route("/{idLivre}", name="code_barre_index", methods={"GET"})
      */
-    public function index(CodeBarreRepository $codeBarreRepository): Response
+    public function index(CodeBarreRepository $codeBarreRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
     {
+        $livreId=$request->attributes->get('idLivre');
+        $livre= $repo->findOneBy(array('id' =>$livreId ));
+        $donnees=$codeBarreRepository->findBy(array('idLivre'=>$livre));
+        $code=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            15 // Nombre de résultats par page
+        );
         return $this->render('code_barre/index.html.twig', [
-            'code_barres' => $codeBarreRepository->findAll(),
+            'codes' =>$code,
+            'livre' => $livre,
         ]);
     }
 

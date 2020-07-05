@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Film;
 use App\Form\FilmType;
 use App\Repository\FilmRepository;
+use App\Repository\LivreRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +18,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class FilmController extends AbstractController
 {
     /**
-     * @Route("/", name="film_index", methods={"GET"})
+     * @Route("/{idLivre}", name="film_index", methods={"GET"})
      */
-    public function index(FilmRepository $filmRepository): Response
+    public function index(FilmRepository $filmRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
     {
+        $livreId=$request->attributes->get('idLivre');
+        $livre= $repo->findOneBy(array('id' =>$livreId ));
+        $donnees=$filmRepository->findBy(array('idLivre'=>$livre));
+        $film=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            7 // Nombre de résultats par page
+        );
         return $this->render('film/index.html.twig', [
-            'films' => $filmRepository->findAll(),
+            'films' =>$film ,
+            'livre' => $livre,
         ]);
     }
 

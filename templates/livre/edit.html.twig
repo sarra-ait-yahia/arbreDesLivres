@@ -1,13 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'indexBase.html.twig' %}
 
-{% block title %}Edit Livre{% endblock %}
+{% block centre %}
+    <h2 style=" font-size:40px; margin-top:70px; text-align:center; margin-bottom:-20px;">Modifier les informations du livre: <br> </h2>
+   <h2 style="font-size:35px; color:#3f5048; text-align:center; ">{{ livre.titre }}</h2>
+<div class="corps" style="width:70%; font-family:Spinner; font-size:20px; margin-bottom:100px; padding-top:50px;">
+    {{ include('livre/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+</div>
 
-{% block body %}
-    <h1>Edit Livre</h1>
-
-    {{ include('livre/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('livre_index') }}">back to list</a>
-
-    {{ include('livre/_delete_form.html.twig') }}
 {% endblock %}

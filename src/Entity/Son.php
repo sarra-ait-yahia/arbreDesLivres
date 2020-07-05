@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SonRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SonRepository::class)
@@ -30,8 +31,34 @@ class Son
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez ajouter votre fichier")
+     * @Assert\File(
+     *     mimeTypes = {"audio/mpeg","audio/mp3"},
+     *     mimeTypesMessage = "Veuillez ajouter un type de fichier valide")
      */
     private $son;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateEcriture;
+
+    /**
+     * @return mixed
+     */
+    public function getDateEcriture()
+    {
+        return $this->dateEcriture;
+    }
+
+    /**
+     * @param mixed $dateEcriture
+     */
+    public function setDateEcriture($dateEcriture): void
+    {
+        $this->dateEcriture = $dateEcriture;
+    }
+
 
     /**
      * @ORM\Column(type="string", length=50)

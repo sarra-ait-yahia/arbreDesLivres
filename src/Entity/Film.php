@@ -24,6 +24,27 @@ class Film
     private $idLivre;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateEcriture;
+
+    /**
+     * @return mixed
+     */
+    public function getDateEcriture()
+    {
+        return $this->dateEcriture;
+    }
+
+    /**
+     * @param mixed $dateEcriture
+     */
+    public function setDateEcriture($dateEcriture): void
+    {
+        $this->dateEcriture = $dateEcriture;
+    }
+
+    /**
      * @ORM\Column(type="string", length=300)
      */
     private $intitule;

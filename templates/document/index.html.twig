@@ -1,40 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'LivreBase.html.twig' %}
 
-{% block title %}Document index{% endblock %}
+{% block centre %}
+    <h5>Les documents</h5>
+    <div class="corps" style="width:90%; font-family:Spinner; font-size:20px;padding-top:50px;">
+            {% for document in documents %}
 
-{% block body %}
-    <h1>Document index</h1>
+                <p style=" text-align:center; float:left;"> <div class="cercle"></div> &nbsp; <b> {{ document.type }}: </b><b style="color:rgb(219,91,67);"> {{ document.intitule }} </b> <b> <a href="{{ path('document_show', {'idLivre': livre.id,'id': document.id}) }}" target="_blank"  style="display:inline-block;float:right;"> Voir le document </a> </b></p>
+                <p> &nbsp; &nbsp; &nbsp; Ajouté le {{ document.dateEcriture|date ('Y-m-d à  H:i') }} par {{ document.auteurNom }}&nbsp;{{ document.auteurPrenom }} </p>
+            {% else %}
+                <br> <b style="width:80%;height:100px; margin-left:430px; font-size:20px;">Aucun document n'a été ajouté</b>
+            {% endfor %}
+        <br> <br>
+        <b class="paginate"> {{ knp_pagination_render(documents) }}
+        </b>
+    </div>
+    <button class="btnUser" style="margin-left:480px; margin-bottom:80px;background-color:rgb(241,239,240);"><a href="{{ path('showLivre', {'id': livre.id}) }}" >Retour à l'arbre du livre</a> </button>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Intitule</th>
-                <th>Type</th>
-                <th>AuteurNom</th>
-                <th>AuteurPrenom</th>
-                <th>Fichier</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for document in documents %}
-            <tr>
-                <td>{{ document.id }}</td>
-                <td>{{ document.intitule }}</td>
-                <td>{{ document.type }}</td>
-                <td>{{ document.auteurNom }}</td>
-                <td>{{ document.auteurPrenom }}</td>
-                <td>{{ document.fichier }}</td>
-                <td>
-                    <a href="{{ path('document_show', {'id': document.id}) }}" target="_blank">show</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 {% endblock %}
+
+

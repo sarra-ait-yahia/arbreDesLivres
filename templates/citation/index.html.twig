@@ -6,7 +6,7 @@
         <div class="corps2">
             <div class="bandeauPetit"> <b>Ajouté le {{ citation.dateEcriture|date ('Y-m-d à  H:i') }}  par {{ citation.rapporteurNom }}&nbsp;{{ citation.rapporteurPrenom }}</b></div>
             <div class="zoneDeux"><b>Nom de l'auteur :</b> {{ citation.auteur }} </div>
-            <div class = "LeText">" &nbsp; {{ citation.text }} &nbsp; "</div>
+            <div class = "LeText">" &nbsp; {{ citation.text|nl2br }} &nbsp; "</div>
         </div>
         {% else %}
             <div class="corps2" style="width:80%;height:100px; text-align:center; font-size:20px;">

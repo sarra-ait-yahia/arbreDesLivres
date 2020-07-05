@@ -23,9 +23,28 @@ class Document
      * @ORM\JoinColumn(nullable=false)
      */
     private $idLivre;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateEcriture;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @return mixed
+     */
+    public function getDateEcriture()
+    {
+        return $this->dateEcriture;
+    }
+
+    /**
+     * @param mixed $dateEcriture
+     */
+    public function setDateEcriture($dateEcriture): void
+    {
+        $this->dateEcriture = $dateEcriture;
+    }
+    /**
+     * @ORM\Column(type="string", length=255)
      */
     private $intitule;
 
@@ -46,6 +65,13 @@ class Document
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez achrger un fichier pdf ou word.")
+     * @Assert\File(
+     *     mimeTypes = {"application/pdf"  , "application/msword" , "application/vnd.openxmlformats-officedocument.wordprocessingml.document "},
+     *     mimeTypesMessage = "Le fichier choisi ne correspond pas à un fichier valide, vous devriez charger un fichier pdf ou word",
+     *     notFoundMessage = "Le fichier n'a pas été trouvé sur le disque",
+     *     uploadErrorMessage = "Erreur dans l'upload du fichier"
+     * )
      */
     private $fichier;
 

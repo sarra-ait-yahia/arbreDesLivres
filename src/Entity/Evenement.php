@@ -39,6 +39,26 @@ class Evenement
     private $date;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateEcriture;
+
+    /**
+     * @return mixed
+     */
+    public function getDateEcriture()
+    {
+        return $this->dateEcriture;
+    }
+
+    /**
+     * @param mixed $dateEcriture
+     */
+    public function setDateEcriture($dateEcriture): void
+    {
+        $this->dateEcriture = $dateEcriture;
+    }
+    /**
      * @ORM\Column(type="string", length=50)
      */
     private $rappoteurNom;

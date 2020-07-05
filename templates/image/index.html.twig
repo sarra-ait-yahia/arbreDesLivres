@@ -1,41 +1,22 @@
-{% extends 'base.html.twig' %}
+{% extends 'LivreBase.html.twig' %}
 
-{% block title %}Image index{% endblock %}
-
-{% block body %}
-    <h1>Image index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Image</th>
-                <th>AuteurNom</th>
-                <th>AuteurPrenom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+{% block centre %}
+    <h5>Les images</h5>
+    <div class="corps" style="width:90%; font-family:Spinner; font-size:20px;">
         {% for image in images %}
-            <tr>
-                <td>{{ image.id }}</td>
-                <td>{{ image.nom }}</td>
-                <td>{{ image.image }}</td>
-                <td>{{ image.auteurNom }}</td>
-                <td>{{ image.auteurPrenom }}</td>
-                <td>
-                    <a href="{{ path('image_show', {'id': image.id}) }}">show</a>
-                    <a href="{{ path('image_edit', {'id': image.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('image_new') }}">Create new</a>
+            <p style=" text-align:center; float:left;"> <div class="cercle"></div> &nbsp; <b style="color:rgb(219,91,67);"> {{ image.nom }}: </b>
+            <b> <a href="{{ path('image_show', {'idLivre': livre.id,'id': image.id}) }}" target="_blank"  style="display:inline-block;float:right;"> Voir l'image </a> </b></p>
+            <p> &nbsp; &nbsp; &nbsp; Ajouté le {{ image.dateEcriture|date ('Y-m-d à  H:i') }} par {{ image.auteurNom }}&nbsp;{{ image.auteurPrenom }} </p>
+        {% else %}
+            <br> <b style="width:80%;height:100px; margin-left:430px; font-size:20px;">Aucune image n'a été ajouté</b>
+        {% endfor %}
+        <br> <br>
+        <b class="paginate"> {{ knp_pagination_render(images) }}
+        </b>
+    </div>
+    <button class="btnUser" style="margin-left:480px; margin-bottom:80px;background-color:rgb(241,239,240);"><a href="{{ path('showLivre', {'id': livre.id}) }}" >Retour à l'arbre du livre</a> </button>
+
 {% endblock %}
+
+

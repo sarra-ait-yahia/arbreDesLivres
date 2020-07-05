@@ -21,21 +21,21 @@
     </div>
     <div class="pageCenter">
         <h1> {{livre.titre}} </h1>
-        <button class="avis" ><a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un avis" data-target="avis_new" data-tooltip="voir" >Ajouter un avis </a></button>
-        <button class="citation"><a class="tooltipped modal-trigger btn right-align" data-title="Ajouter une citation" data-target="citation_new" data-tooltip="voir" > Ajouter une citation</a></button>
-        <p style="margin-left:40px;font-size:16px;font-weight:bold;"> <a href="{{ path('avis_index',{'idLivre':livre.id}) }}">Voir tous les avis</a>  <a href="{{ path('citation_index',{'idLivre':livre.id}) }}" style="margin-left:510px;">Voir toutes les citations</a>   </p><br>
-        <button class="event"><a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un évènement" data-target="evenement_new" data-tooltip="voir" >  Ajouter un évènement</a></button>
-        <button class="document"> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un document" data-target="document_new" data-tooltip="voir" >Ajouter un document</a></button>
-        <p style="margin-left:10px;font-size:16px;font-weight:bold;"><a href="">Voir tous les évènements</a> <a href="{{ path('document_index') }}"  style="margin-left:700px;">Voir tous les Documents</a>   </p><br>
-        <button class="image"> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter une image" data-target="image_new" data-tooltip="voir" > Ajouter une image</a></button>
-        <button class="son"> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un son" data-target="son_new" data-tooltip="voir" >Ajouter un son</a></button>
-        <p style="font-size:16px;font-weight:bold;"> <a href="">Voir toutes les images</a> <a href=""  style="margin-left:740px;">Voir tous les sons</a>   </p><br>
-        <button class="film"> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un film" data-target="film_new" data-tooltip="voir" > Ajouter un film</a></button>
-        <button class="question"> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter une question" data-target="question_new" data-tooltip="voir" >Poser une question</a></button>
-        <p style="margin-left:30px;font-size:16px;font-weight:bold;"> <a href="">Voir la liste des films</a> <a href="{{ path('question_index',{'idLivre':livre.id}) }}"  style="margin-left:700px;">Voir toutes les questions</a>   </p><br>
-        <button class="codeBarre"> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un code barre" data-target="codeBarre_new" data-tooltip="voir" > Ajouter un code barre</a></button>
-        <button class="conseil"> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un conseil" data-target="conseil_new" data-tooltip="voir" >Ajouter un conseil</a></button>
-        <p style="margin-left:10px;font-size:16px;font-weight:bold;"><a href="">Voir tous les codes barres</a> <a href=""  style="margin-left:490px;">Voir tous les conseils</a>   </p><br>
+        <button class="avis" > <img src="{{ asset('build/images/feuille.svg') }}" /><a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un avis" data-target="avis_new" data-tooltip="avis_new" >Ajouter un avis </a></button>
+        <button class="conseil"><img src="{{ asset('build/images/feuille.svg') }}" /> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un conseil" data-target="conseil_new" data-tooltip="conseil_new" >Ajouter un conseil</a></button>
+        <p style="margin-left:20px;font-size:16px;font-weight:bold;"> <a href="{{ path('avis_index',{'idLivre':livre.id}) }}">Voir tous les avis</a> <a href="{{ path('conseil_index',{'idLivre':livre.id}) }}"  style="margin-left:510px;">Voir tous les conseils</a>   </p><br>
+        <button class="citation"> <img src="{{ asset('build/images/fruit.svg') }}" /> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter une citation" data-target="citation_new" data-tooltip="citation_new" > Ajouter une citation</a></button>
+        <button class="document">  <img src="{{ asset('build/images/fruit.svg') }}" /> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un document" data-target="document_new" data-tooltip="document_action" >Ajouter un document</a></button>
+        <p style="margin-left:10px;font-size:16px;font-weight:bold;"> <a href="{{ path('citation_index',{'idLivre':livre.id}) }}" >Voir toutes les citations</a> <a href="{{ path('document_index',{'idLivre':livre.id}) }}"  style="margin-left:700px;">Voir tous les documents</a>   </p><br>
+        <button class="image">  <img src="{{ asset('build/images/fruit.svg') }}" /> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter une image" data-target="image_new" data-tooltip="image_action" > Ajouter une image</a></button>
+        <button class="son"> <img src="{{ asset('build/images/fruit.svg') }}" />  <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un son" data-target="son_new" data-tooltip="son_action" >Ajouter un son</a></button>
+        <p style="font-size:16px;font-weight:bold;"> <a href="{{  path('image_index', {'id': livre.id}) }}"> Voir toutes les images </a> <a href="{{  path('son_index', {'id': livre.id}) }}"  style="margin-left:740px;">Voir tous les sons</a>   </p><br>
+        <button class="film"> <img src="{{ asset('build/images/fruit.svg') }}" />  <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un film" data-target="film_new" data-tooltip="film_new" > Ajouter un film</a></button>
+        <button class="question"><img src="{{ asset('build/images/papillon.svg') }}" /> <a class="tooltipped modal-trigger btn right-align" data-title="Ajouter une question" data-target="question_new" data-tooltip="question_new" >Poser une question</a></button>
+        <p style="margin-left:30px;font-size:16px;font-weight:bold;"> <a href="{{ path('film_index',{'idLivre':livre.id}) }}">Voir la liste des films</a> <a href="{{ path('question_index',{'idLivre':livre.id}) }}"  style="margin-left:700px;">Voir toutes les questions</a>   </p><br>
+        <button class="codeBarre"> <img src="{{ asset('build/images/feuille.svg') }}" /><a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un code barre" data-target="codeBarre_new" data-tooltip="codeBarre_new" > Ajouter un code barre</a></button>
+        <button class="event"><img src="{{ asset('build/images/feuille.svg') }}" /><a class="tooltipped modal-trigger btn right-align" data-title="Ajouter un évènement" data-target="evenement_new" data-tooltip="evenement_new" >  Ajouter un évènement</a></button>
+        <p style="margin-left:10px;font-size:16px;font-weight:bold;"><a href="{{ path('code_barre_index',{'idLivre':livre.id}) }}" style="margin-left:10px;">Voir tous les codes barres</a><a href="{{ path('evenement_index',{'idLivre':livre.id}) }}" style="margin-left:480px;">Voir tous les évènements</a>   </p><br>
         <button class="fiche" > <a class="fruit" href="{{ path('showdetailLivreBase',{'id':livre.id}) }}"> Accéder à la présentation du livre</a> </button>
     </div>
     <div id="modal1" class="modal  modal__box" aria-hidden="true">
@@ -47,8 +47,8 @@
         <div class="modal-content">
         </div>
     </div>
-    <div  style="width: 100%; position: absolute; top: 150px;">
-       <b  style="color:red;font-size:17px;display: block; text-align:center;font-family:Spinnaker;"> {% if messageSucces is defined %} {{ messageSucces}}  {% endif %}</b>
+    <div  style="width: 30%; position:absolute; top: 145px; left:440px;">
+       <b  style="color:red;font-size:17px;display: block; text-align:center;font-family:Spinnaker;"> {% if message is defined %} {{ message|nl2br }}  {% endif %}</b>
     </div>
     <div>
         <audio src="{{asset(son) }}" Id="audio" controls="controls"  preload="auto" loop="true" autoplay="true" autostart="True"  style="display:none;"></audio>
@@ -96,18 +96,96 @@
             $('.closemodal').click(function() {
                 $('.modal').modal('hide')
             })
-        })
+        });
         $(document).ready(function() {
-            var fruits="{{ fruit }}";
-            var feuilles="{{ feuille }}";
-            for(let i=1;i<=feuilles;i++){
-                document.getElementById("feuille"+i).style.display= "block";
+            var nbavis="{{ nbavis }}";
+            var nbquestion="{{ nbquestion }}";
+            var nbcodebarre="{{ nbcodebarre }}";
+            var nbconseil="{{ nbconseil }}";
+            var nbevenement="{{ nbevenement }}";
+            var nbcitation="{{ nbcitation }}";
+            var nbimage="{{ nbimage }}";
+            var nbfilm="{{ nbfilm }}";
+            var nbdocument="{{ nbdocument }}";
+            var nbson="{{ nbson }}";
+            if(nbavis>43)
+                nbavis=43;
+            if(nbquestion>16)
+                nbquestion=16
+            if(nbcodebarre>6)
+                nbcodebarre=6
+            if(nbconseil>25)
+                nbconseil=25
+            if(nbevenement>22)
+                nbevenement=22
+            if(nbcitation>11)
+                nbcitation=11
+            if(nbimage>12)
+                nbimage=12
+            if(nbfilm>4)
+                nbfilm=4
+            if(nbdocument>17)
+                nbdocument=17
+            if(nbson>7)
+                nbson=7
+            for(let i=1;i<=nbavis;i++){
+                document.getElementById("avis"+i).style.display= "block";
             }
-            for(let i=1;i<=fruits;i++){
-                document.getElementById("fruit"+i).style.display= "block";
+            for(let i=1;i<=nbquestion;i++){
+                document.getElementById("question"+i).style.display= "block";
+            }
+            for(let i=1;i<=nbcodebarre;i++){
+                document.getElementById("codebarre"+i).style.display= "block";
+            }
+            for(let i=1;i<=nbconseil;i++){
+                document.getElementById("conseil"+i).style.display= "block";
+            }
+            for(let i=1;i<=nbevenement;i++){
+                document.getElementById("evenement"+i).style.display= "block";
+            }
+            for(let i=1;i<=nbcitation;i++){
+                document.getElementById("citation"+i).style.display= "block";
+            }
+            for(let i=1;i<=nbimage;i++){
+                document.getElementById("image"+i).style.display= "block";
+            }
+            for(let i=1;i<=nbfilm;i++){
+                document.getElementById("film"+i).style.display= "block";
+            }
+            for(let i=1;i<=nbdocument;i++){
+                document.getElementById("document"+i).style.display= "block";
+            }
+            for(let i=1;i<=nbson;i++){
+                document.getElementById("son"+i).style.display= "block";
             }
 
         });
+       $(function () {
+           $('#modal1').submit(function(e) {
+               var id="{{ livre.id}}";
+               var formData = new FormData(this);
+               var path= $(this).attr('data-tooltip');
+               var formUrl = Routing.generate(path,{'id':id}) ;
+               $.ajax({
+                   url: formUrl,
+                   type: 'POST',
+                   data:  formData,
+                   contentType: false,
+                   cache: false,
+                   processData: false,
+                   success: function(data, textStatus, jqXHR)
+                   {
+                       if(data['status'] === 'success'){
+                           alert('success');
+                       } else {
+                           $('#modal1').html(data['html']);
+                       }
+                   },
+               });
+
+               e.preventDefault();
+           });
+       });
     </script>
 {% endblock %}
 

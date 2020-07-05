@@ -1,45 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'LivreBase.html.twig' %}
 
-{% block title %}Evenement index{% endblock %}
+{% block centre %}
+    <h5>Les évènements </h5>
+    {% for evenement in evenements %}
+        <div class="corps2">
+            <div class="bandeauPetit"> <b>Ajouté le {{ evenement.dateEcriture|date ('Y-m-d à  H:i') }}  par {{ evenement.rappoteurNom }}&nbsp;{{ evenement.rapporteurPrenom }}</b></div>
+            <div class = "zoneDeux">
+                <b>{{ evenement.intitule }}</b>
+            </div>
+            <div class = "LeText">{{ evenement.description|nl2br }} <br><br>
+                <b> Date de l'évènement: &nbsp;</b> {{ evenement.date |date ('Y-m-d à  H:i') }} <br>
+                <b> Lien d'inscription:&nbsp; <a href="{{ evenement.lien }}" target="_blank" >{{ evenement.lien }}</a> </b></div>
+        </div>
+    {% else %}
+        <div class="corps2" style="width:80%;height:100px; text-align:center; font-size:20px;">
+            <br> <b>Aucun évènement n'a été ajouté.</b>
+        </div>
+    {% endfor %}
+    <br> <br>
+    <b class="paginate"> {{ knp_pagination_render(evenements) }}
+    </b>
+    <button class="btnUser" style="margin-left:480px;margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240);"><a href="{{ path('showLivre', {'id': livre.id}) }}" >Retour à l'arbre du livre</a> </button>
 
-{% block body %}
-    <h1>Evenement index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Intitule</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>RappoteurNom</th>
-                <th>RapporteurPrenom</th>
-                <th>Lien</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for evenement in evenements %}
-            <tr>
-                <td>{{ evenement.id }}</td>
-                <td>{{ evenement.intitule }}</td>
-                <td>{{ evenement.description }}</td>
-                <td>{{ evenement.date ? evenement.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ evenement.rappoteurNom }}</td>
-                <td>{{ evenement.rapporteurPrenom }}</td>
-                <td>{{ evenement.lien }}</td>
-                <td>
-                    <a href="{{ path('evenement_show', {'id': evenement.id}) }}">show</a>
-                    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('evenement_new') }}">Create new</a>
 {% endblock %}

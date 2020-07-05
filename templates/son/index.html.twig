@@ -1,43 +1,22 @@
-{% extends 'base.html.twig' %}
+{% extends 'LivreBase.html.twig' %}
 
-{% block title %}Son index{% endblock %}
-
-{% block body %}
-    <h1>Son index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Son</th>
-                <th>AuteurNom</th>
-                <th>AuteurPrenom</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+{% block centre %}
+    <h5>Les fichiers audio</h5>
+    <div class="corps" style="width:90%; font-family:Spinner; font-size:20px;">
         {% for son in sons %}
-            <tr>
-                <td>{{ son.id }}</td>
-                <td>{{ son.nom }}</td>
-                <td>{{ son.son }}</td>
-                <td>{{ son.auteurNom }}</td>
-                <td>{{ son.auteurPrenom }}</td>
-                <td>{{ son.description }}</td>
-                <td>
-                    <a href="{{ path('son_show', {'id': son.id}) }}">show</a>
-                    <a href="{{ path('son_edit', {'id': son.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('son_new') }}">Create new</a>
+            <p style=" text-align:center; float:left;"> <div class="cercle"></div> &nbsp; <b style="color:rgb(219,91,67);"> {{ son.nom }} </b>, ajouté le {{ son.dateEcriture|date ('Y-m-d à  H:i') }} par {{ son.auteurNom }}&nbsp;{{ son.auteurPrenom }} <b> <a href="{{ path('son_show', {'idLivre': livre.id,'id': son.id}) }}" target="_blank"  style="display:inline-block;float:right;"> Ecouter cette musique </a> </b></p>
+            <p style="margin-left:30px;"><b> Description du fichier: </b>  {{ son.description}} </p>
+
+        {% else %}
+            <br> <b style="width:80%;height:100px; margin-left:420px; font-size:20px;">Aucun fichier audio n'a été ajouté</b>
+        {% endfor %}
+        <br> <br>
+        <b class="paginate"> {{ knp_pagination_render(sons) }}
+        </b>
+    </div>
+    <button class="btnUser" style="margin-left:480px; margin-bottom:80px;background-color:rgb(241,239,240);"><a href="{{ path('showLivre', {'id': livre.id}) }}" >Retour à l'arbre du livre</a> </button>
+
 {% endblock %}
+
+

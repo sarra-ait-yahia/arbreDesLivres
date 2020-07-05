@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Document;
 use App\Form\DocumentType;
 use App\Repository\DocumentRepository;
+use App\Repository\LivreRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,21 +19,30 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class DocumentController extends AbstractController
 {
     /**
-     * @Route("/", name="document_index", methods={"GET"})
+     * @Route("/{idLivre}", name="document_index", methods={"GET"})
      */
-    public function index(DocumentRepository $documentRepository): Response
+    public function index(DocumentRepository $documentRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
     {
+        $livreId=$request->attributes->get('idLivre');
+        $livre= $repo->findOneBy(array('id' =>$livreId ));
+        $donnees=$documentRepository->findBy(array('idLivre'=>$livre));
+        $document=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            15 // Nombre de résultats par page
+        );
         return $this->render('document/index.html.twig', [
-            'documents' => $documentRepository->findAll(),
+            'documents' =>$document,
+            'livre' => $livre,
         ]);
+
     }
     /**
-     * @Route("/{id}", name="document_show", methods={"GET"})
+     * @Route("/{idLivre}/{id}", name="document_show", methods={"GET","POST"})
      */
     public function show(Document $document): Response
     {
-            return new BinaryFileResponse('../public/uploads/' . $document->getFichier());
-
+           return new BinaryFileResponse('../public/uploads/'.$document->getFichier());
     }
 
     /**

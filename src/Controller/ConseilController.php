@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Conseil;
 use App\Form\ConseilType;
 use App\Repository\ConseilRepository;
+use App\Repository\LivreRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +18,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConseilController extends AbstractController
 {
     /**
-     * @Route("/", name="conseil_index", methods={"GET"})
+     * @Route("/{idLivre}", name="conseil_index", methods={"GET"})
      */
-    public function index(ConseilRepository $conseilRepository): Response
+    public function index(ConseilRepository $conseilRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
     {
+        $livreId=$request->attributes->get('idLivre');
+        $livre= $repo->findOneBy(array('id' =>$livreId ));
+        $donnees=$conseilRepository->findBy(array('idLivre'=>$livre));
+        $conseil=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            7 // Nombre de résultats par page
+        );
         return $this->render('conseil/index.html.twig', [
-            'conseils' => $conseilRepository->findAll(),
+            'conseils' =>$conseil,
+            'livre' => $livre,
         ]);
     }
 

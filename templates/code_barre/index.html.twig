@@ -1,35 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'LivreBase.html.twig' %}
 
-{% block title %}CodeBarre index{% endblock %}
+{% block centre %}
+    <h5>La liste des codes barre</h5>
+    <div class="corps" style="width:90%; font-family:Spinner; font-size:20px;">
+        {% for code in codes %}
 
-{% block body %}
-    <h1>CodeBarre index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Code</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for code_barre in code_barres %}
-            <tr>
-                <td>{{ code_barre.id }}</td>
-                <td>{{ code_barre.code }}</td>
-                <td>
-                    <a href="{{ path('code_barre_show', {'id': code_barre.id}) }}">show</a>
-                    <a href="{{ path('code_barre_edit', {'id': code_barre.id}) }}">edit</a>
-                </td>
-            </tr>
+            <p style=" text-align:center; float:left;"> <div class="cercle"></div> &nbsp; <b style="color:rgb(219,91,67);"> {{ code.code }}: </b> </p>
+            <p> &nbsp; &nbsp; &nbsp; Ajouté le {{ code.dateEcriture|date ('Y-m-d à  H:i') }} par {{ code.RapporteurNom }}&nbsp;{{ code.RapporteurPrenom }} </p>
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+            <br> <b style="width:80%;height:100px; margin-left:420px; font-size:20px;">Aucun code barre n'a été ajouté</b>
         {% endfor %}
-        </tbody>
-    </table>
+        <br> <br>
+        <b class="paginate"> {{ knp_pagination_render(codes) }}
+        </b>
+    </div>
+    <button class="btnUser" style="margin-left:480px; margin-bottom:80px;background-color:rgb(241,239,240);"><a href="{{ path('showLivre', {'id': livre.id}) }}" >Retour à l'arbre du livre</a> </button>
 
-    <a href="{{ path('code_barre_new') }}">Create new</a>
 {% endblock %}
+
+

@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Son;
 use App\Form\SonType;
+use App\Repository\LivreRepository;
 use App\Repository\SonRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,23 +19,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class SonController extends AbstractController
 {
     /**
-     * @Route("/", name="son_index", methods={"GET"})
+     * @Route("/{id}", name="son_index", methods={"GET"})
      */
-    public function index(SonRepository $sonRepository): Response
+    public function index(SonRepository $sonRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
     {
+        $livreId=$request->attributes->get('id');
+        $livre= $repo->findOneBy(array('id' =>$livreId ));
+        $donnees=$sonRepository->findBy(array('idLivre'=>$livre));
+        $son=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            15 // Nombre de résultats par page
+        );
         return $this->render('son/index.html.twig', [
-            'sons' => $sonRepository->findAll(),
+            'sons' =>$son,
+            'livre' => $livre,
         ]);
+
     }
 
     /**
-     * @Route("/{id}", name="son_show", methods={"GET"})
+     * @Route("/{idLivre}/{id}", name="son_show", methods={"GET","POST"})
      */
     public function show(Son $son): Response
     {
-        return $this->render('son/show.html.twig', [
-            'son' => $son,
-        ]);
+        return new BinaryFileResponse('../public/uploads/'.$son->getSon());
     }
 
     /**

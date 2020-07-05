@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
  */
@@ -24,8 +24,31 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\File( mimeTypes = {"image/jpeg", "image/png", "image/gif", "image/jpg"},
+     *  mimeTypesMessage = "Ce fichier doit être une image ")
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateEcriture;
+
+    /**
+     * @return mixed
+     */
+    public function getDateEcriture()
+    {
+        return $this->dateEcriture;
+    }
+
+    /**
+     * @param mixed $dateEcriture
+     */
+    public function setDateEcriture($dateEcriture): void
+    {
+        $this->dateEcriture = $dateEcriture;
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity=Livre::class, inversedBy="images")
