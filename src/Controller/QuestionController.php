@@ -18,6 +18,22 @@ use Knp\Component\Pager\PaginatorInterface;
 class QuestionController extends AbstractController
 {
     /**
+     * @Route("/", name="question_Tous", methods={"GET"})
+     */
+    public function toutQuestion(QuestionRepository $questionRepository,Request $request, PaginatorInterface $paginator): Response
+    {
+        $donnees=$questionRepository->findAll();
+        $question=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            7 // Nombre de résultats par page
+        );
+        return $this->render('question/tousQuestion.html.twig', [
+            'questions' =>$question ,
+        ]);
+    }
+
+    /**
      * @Route("/{idLivre}", name="question_index", methods={"GET"})
      */
     public function index(QuestionRepository $questionRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
@@ -35,8 +51,6 @@ class QuestionController extends AbstractController
             'livre' => $livre,
         ]);
     }
-
-
 
     /**
      * @Route("/{id}", name="question_show", methods={"GET"})
@@ -75,10 +89,15 @@ class QuestionController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$question->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            foreach($question->getReponses() as $reponse)
+                $entityManager->remove($reponse);
+            $entityManager->flush();
+
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($question);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('question_index');
+        return $this->redirectToRoute('question_Tous');
     }
 }

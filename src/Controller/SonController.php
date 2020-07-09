@@ -19,6 +19,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class SonController extends AbstractController
 {
     /**
+     * @Route("/", name="son_Tous", methods={"GET"})
+     */
+    public function TousSon(SonRepository $sonRepository,Request $request,PaginatorInterface $paginator): Response
+    {
+        $donnees=$sonRepository->findAll();
+        $son=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+        return $this->render('son/toutSon.html.twig', [
+            'sons' =>$son,
+        ]);
+
+    }
+
+    /**
      * @Route("/{id}", name="son_index", methods={"GET"})
      */
     public function index(SonRepository $sonRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
@@ -77,6 +94,6 @@ class SonController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('son_index');
+        return $this->redirectToRoute('son_Tous');
     }
 }

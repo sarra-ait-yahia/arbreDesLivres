@@ -18,6 +18,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class FilmController extends AbstractController
 {
     /**
+     * @Route("/", name="film_Tous", methods={"GET"})
+     */
+    public function ToutFilm(FilmRepository $filmRepository,Request $request, PaginatorInterface $paginator): Response
+    {
+        $donnees=$filmRepository->findAll();
+        $film=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            7 // Nombre de résultats par page
+        );
+        return $this->render('film/toutFilm.html.twig', [
+            'films' =>$film ,
+        ]);
+    }
+
+    /**
      * @Route("/{idLivre}", name="film_index", methods={"GET"})
      */
     public function index(FilmRepository $filmRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
@@ -78,6 +94,6 @@ class FilmController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('film_index');
+        return $this->redirectToRoute('film_Tous');
     }
 }

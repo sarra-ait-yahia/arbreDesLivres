@@ -5,7 +5,8 @@
     <div class="corps" style="width:90%; font-family:Spinner; font-size:20px;">
         {% for son in sons %}
 
-            <p style=" text-align:center; float:left;"> <div class="cercle"></div> &nbsp; <b style="color:rgb(219,91,67);"> {{ son.nom }} </b>, ajouté le {{ son.dateEcriture|date ('Y-m-d à  H:i') }} par {{ son.auteurNom }}&nbsp;{{ son.auteurPrenom }} <b> <a href="{{ path('son_show', {'idLivre': livre.id,'id': son.id}) }}" target="_blank"  style="display:inline-block;float:right;"> Ecouter cette musique </a> </b></p>
+            <p style=" text-align:center; float:left;"> <div class="cercle"></div> &nbsp; <b style="color:rgb(219,91,67);"> {{ son.nom }} </b> <b> <a href="{{ path('son_show', {'idLivre': livre.id,'id': son.id}) }}" target="_blank"  style="display:inline-block;float:right;"> Ecouter cette musique </a> </b></p>
+            <p style="margin-left:30px;">Ajouté le {{ son.dateEcriture|date ('Y-m-d à  H:i') }} par {{ son.auteurNom }}&nbsp;{{ son.auteurPrenom }}</p>
             <p style="margin-left:30px;"><b> Description du fichier: </b>  {{ son.description}} </p>
 
         {% else %}

@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\LivreRepository;
 use App\Repository\UserRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,13 +21,26 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository,PaginatorInterface $paginator,Request $request): Response
     {
+        $donnees=$userRepository->findAll();
+        $users= $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' =>$users ,
         ]);
     }
 
+    /**
+     * @Route("/voirTous", name="voir_tous", methods={"GET"})
+     */
+    public function voirTous(): Response
+    {
+        return $this->render('user/Voir_Tous.html.twig');
+    }
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
@@ -49,8 +64,9 @@ class UserController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/{id}", name="showUser", methods={"GET"})
+     * @Route("/{id}/show", name="showUser", methods={"GET"})
      */
     public function show(User $user): Response
     {
@@ -87,13 +103,20 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/{id}", name="user_delete",  methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+
+            $livres= $user->getLivres();
+            foreach($livres as $livre){
+                $livre->setIdUser($this->getUser());
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($livre);
+                $entityManager->flush();
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
@@ -101,4 +124,6 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('user_index');
     }
+
+
 }

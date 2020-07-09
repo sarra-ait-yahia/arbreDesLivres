@@ -1,0 +1,27 @@
+{% extends 'indexBase.html.twig' %}
+
+{% block centre %}
+    <h5>Tous les livres </h5>
+    {% for livre in livres %}
+    <div class="corps2" >
+        <div class="bandeauPetit"> <b>Ajouté le {{ livre.dateEcriture|date ('Y-m-d à  H:i') }}  par {{ livre.idUser.nom }}&nbsp;{{ livre.idUser.prenom }}</b></div>
+        <div class = "zoneDeux">
+            <b style="color:rgb(63,80,72);">{{ livre.titre }} </b>, écrit par <b> {{ livre.auteur }}</b> en <b> {{ livre.annee| date('Y') }}</b>
+        </div>
+        <div class = "LeText">
+            <b> Type:</b> {{ livre.type }}, &nbsp <b> Editeur: </b> {{ livre.editeur }} <br> <br>
+            <b>Résumé:</b>
+            <p>{{ livre.resume|nl2br }}</p>
+             {{ include('livre/_delete_form.html.twig') }}
+            </div>
+    </div>
+    {% else %}
+    <div class="corps2" >
+        <b> Aucun livre n'a été ajouté</b>
+    </div>
+    {% endfor %}
+    <br>
+    <b class="paginate"> {{ knp_pagination_render(livres) }}
+    </b> <br>
+    <button class="btnUser" style="margin-left:480px; margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240); height:50px;"> <a href="{{ path('voir_tous') }}">Retour à la liste de gestion des éléments</a></button>
+{% endblock %}

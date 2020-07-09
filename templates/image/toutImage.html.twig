@@ -1,0 +1,24 @@
+{% extends 'indexBase.html.twig' %}
+
+{% block centre %}
+    <h5>Les images</h5>
+    <div class="corps" style="width:90%; font-family:Spinner; font-size:20px;"> <br>
+        {% for image in images %}
+
+            <p style=" text-align:center; float:left;"> <div class="cercle"></div> &nbsp; <b style="color:rgb(219,91,67);"> {{ image.nom }}: </b>
+            <b> <a href="{{ path('image_show', {'idLivre': image.idLivre.id,'id': image.id}) }}" target="_blank"  style="display:inline-block;float:right;"> Voir l'image &nbsp;&nbsp; &nbsp;</a> </b></p>
+            <p> &nbsp; &nbsp; &nbsp; <b> Titre du livre: </b>  {{ image.idLivre.titre }}</p>
+            <p style="float:left;margin-top:0px;"> &nbsp; &nbsp; &nbsp; Ajouté le {{ image.dateEcriture|date ('Y-m-d à  H:i') }} par {{ image.auteurNom }}&nbsp;{{ image.auteurPrenom }}
+            <b style="float:right;">{{ include('image/_delete_form.html.twig') }}</b> </p> <br> <br> <br> <br>
+        {% else %}
+            <br> <b style="width:80%;height:100px; margin-left:430px; font-size:20px;">Aucune image n'a été ajouté</b>
+        {% endfor %}
+        <br> <br>
+        <b class="paginate"> {{ knp_pagination_render(images) }}
+        </b>
+    </div>
+    <button class="btnUser" style="margin-left:480px; margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240); height:50px;"> <a href="{{ path('voir_tous') }}">Retour à la liste de gestion des éléments</a></button>
+
+{% endblock %}
+
+

@@ -24,7 +24,7 @@ class ReponseRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->andWhere('r.idQuestion = :val')
             ->setParameter('val', $question)
-            ->orderBy('r.id', 'ASC')
+            ->orderBy('r.id', 'DESC')
             ->getQuery()
             ->getResult()
             ;

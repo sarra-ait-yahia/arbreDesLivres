@@ -18,6 +18,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class EvenementController extends AbstractController
 {
     /**
+     * @Route("/", name="evenement_Tous", methods={"GET"})
+     */
+    public function toutEvent(EvenementRepository $evenementRepository,Request $request,  PaginatorInterface $paginator): Response
+    {
+        $donnees=$evenementRepository->findAll();
+        $evenement=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            7 // Nombre de résultats par page
+        );
+        return $this->render('evenement/toutEvenement.html.twig', [
+            'evenements' =>$evenement ,
+        ]);
+    }
+
+    /**
      * @Route("/{idLivre}", name="evenement_index", methods={"GET"})
      */
     public function index(EvenementRepository $evenementRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
@@ -78,6 +94,6 @@ class EvenementController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('evenement_index');
+        return $this->redirectToRoute('evenement_Tous');
     }
 }

@@ -4,7 +4,8 @@
 {% block centre %}
     <div class="corps">
     {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert" role="alert">{{ flashError }}</div>
+        <div class="alert" role="alert" style="color:red;">{{ flashError }} <br>
+            </div>
     {% endfor %}
 
     <h2 style="color:#3f5048; font-size:40px; margin-top:70px;text-align:center;">Inscrivez-vous</h2>
@@ -43,4 +44,5 @@
         <button type="submit" class="inscrire">S'inscrire</button>
     {{ form_end(registrationForm) }}
     </div>
+
 {% endblock %}

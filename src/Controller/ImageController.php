@@ -20,6 +20,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class ImageController extends AbstractController
 {
     /**
+     * @Route("/", name="image_Tous", methods={"GET"})
+     */
+    public function toutImage(ImageRepository $imageRepository,Request $request,PaginatorInterface $paginator): Response
+    {
+        $donnees=$imageRepository->findAll();
+        $image=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+        return $this->render('image/toutImage.html.twig', [
+            'images' =>$image,
+        ]);
+
+    }
+
+    /**
      * @Route("/{id}", name="image_index", methods={"GET"})
      */
     public function index(ImageRepository $imageRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
@@ -78,6 +95,6 @@ class ImageController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('image_index');
+        return $this->redirectToRoute('image_Tous');
     }
 }

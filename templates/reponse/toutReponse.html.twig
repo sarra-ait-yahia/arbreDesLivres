@@ -1,0 +1,39 @@
+{% extends 'indexBase.html.twig' %}
+
+{% block centre %}
+    <h6> Question:</h6>
+    <div class="corps2" >
+        <div class="bandeauPetit"> <b>Ajouté le {{ question.dateEcriture|date ('Y-m-d à  H:i') }}  par {{ question.auteurNom }}&nbsp;{{ question.auteurPrenom }}</b></div>
+        <div class="zoneDeux"><b>Adresse mail :</b> {{ question.mail }} </div>
+        <div class = "LeText"> {{ question.question|nl2br }}<br> <br>
+            <b> Titre du livre: </b>  {{ question.idLivre.titre }}</div>
+        <div class="reponse">{% set size = question.reponses | length %}
+                <b>Nombre de réponses : {{ size }}</b>
+        </div>
+    </div>
+    <h6>Réponses:</h6>
+    <div>
+    {% for reponse in reponses %}
+        <div class="corps2">
+            <div class="bandeauPetit"> <b>Ajouté le {{ reponse.dateEcriture|date ('Y-m-d à  H:i') }}  par {{ reponse.auteurNom }}&nbsp;{{ question.auteurPrenom }}</b></div>
+            <div class="zoneDeux"><b>Adresse mail :</b> {{ reponse.mail }} </div>
+            <div class = "LeText"> {{ reponse.reponse|nl2br }}</div>
+            {{ include('reponse/_delete_form.html.twig') }}
+         </div>
+        {% else %}
+    <div class="corps2" >
+       <b style="margin-left:250px;font-family: Spinnaker;font-size:20px;"> Aucune réponse à cette question n'a été ajouté</b>
+    </div>
+    {% endfor %}
+
+    <br> <br>
+    <b class="paginate"> {{ knp_pagination_render(reponses) }}
+</b>
+    </div>
+    <br> <br>
+
+    <button class="btnUser" style="margin-left:490px;margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240);"><a href="{{ path('question_Tous') }}" >Retour à la liste des questions</a> </button>
+
+    </div>
+
+        {% endblock %}

@@ -19,6 +19,23 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class DocumentController extends AbstractController
 {
     /**
+     * @Route("/", name="document_Tous", methods={"GET"})
+     */
+    public function toutDocument(DocumentRepository $documentRepository,Request $request,  PaginatorInterface $paginator): Response
+    {
+        $donnees=$documentRepository->findAll();
+        $document=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+        return $this->render('document/toutDocument.html.twig', [
+            'documents' =>$document,
+        ]);
+
+    }
+
+    /**
      * @Route("/{idLivre}", name="document_index", methods={"GET"})
      */
     public function index(DocumentRepository $documentRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
@@ -38,11 +55,16 @@ class DocumentController extends AbstractController
 
     }
     /**
-     * @Route("/{idLivre}/{id}", name="document_show", methods={"GET","POST"})
+     * @Route("/{idLivre}/{id}/{vue}", name="document_show", methods={"GET","POST"})
      */
-    public function show(Document $document): Response
+    public function show(Document $document,Request $request): Response
     {
-           return new BinaryFileResponse('../public/uploads/'.$document->getFichier());
+        $vue=$request->attributes->get('vue');
+        $document->setVue($vue);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($document);
+        $entityManager->flush();
+        return new BinaryFileResponse('../public/uploads/'.$document->getFichier());
     }
 
     /**
@@ -76,6 +98,6 @@ class DocumentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('document_index');
+        return $this->redirectToRoute('document_Tous');
     }
 }

@@ -1,5 +1,5 @@
-<form method="post" action="{{ path('code_barre_delete', {'id': code_barre.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('code_barre_delete', {'id': code.id}) }}" onsubmit="return confirm('êtes-vous sûr de vouloir supprimer ce code barre ?');">
     <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ code_barre.id) }}">
-    <button class="btn">Delete</button>
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ code.id) }}">
+    <button class="btnUser" style="width:150px;font-size:18px; margin-left:-20px; height:25px;">Supprimer</button>
 </form>

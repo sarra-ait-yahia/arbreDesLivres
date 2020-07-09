@@ -31,7 +31,8 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $user->setDateEcriture(new \DateTime('now'));
+            $user->setRoles(array('role'=>'user'));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

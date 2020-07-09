@@ -1,0 +1,23 @@
+{% extends 'indexBase.html.twig' %}
+
+{% block centre %}
+    <h5>Les documents</h5>
+    <div class="corps" style="width:90%; font-family:Spinner; font-size:20px;padding-top:50px;"> <br>
+            {% for document in documents %}
+                {% set vue= document.vue + 1 %}
+                <p style=" float:left;"> <div class="cercle"></div> &nbsp; <b> {{ document.type }}: </b><b style="color:rgb(219,91,67);"> {{ document.intitule }} </b> <b> <a href="{{ path('document_show', {'idLivre': document.idLivre.id,'id': document.id,'vue':vue}) }}" target="_blank"  style="display:inline-block;float:right;"> Voir le document </a> </b></p>
+                <p> &nbsp; &nbsp; &nbsp; <b> Titre du livre: </b>  {{ document.idLivre.titre }}</p>
+                <p style="float:left;margin-top:0px;"> &nbsp; &nbsp; &nbsp; Ajouté le {{ document.dateEcriture|date ('Y-m-d à  H:i') }} par {{ document.auteurNom }}&nbsp;{{ document.auteurPrenom }} , vu <b>{{ document.vue }} </b> fois.
+                <b style="float:right;">{{ include('document/_delete_form.html.twig') }}</b> </p> <br> <br> <br> <br>
+            {% else %}
+                <br> <b style="width:80%;height:100px; margin-left:430px; font-size:20px;">Aucun document n'a été ajouté</b>
+            {% endfor %}
+        <br> <br>
+        <b class="paginate"> {{ knp_pagination_render(documents) }}
+        </b>
+    </div>
+    <button class="btnUser" style="margin-left:480px; margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240); height:50px;"> <a href="{{ path('voir_tous') }}">Retour à la liste de gestion des éléments</a></button>
+
+{% endblock %}
+
+

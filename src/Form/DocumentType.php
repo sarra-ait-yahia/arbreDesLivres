@@ -21,6 +21,7 @@ class DocumentType extends AbstractType
                     'Analyse personnelle' => 'Analyse personnelle',
                     'Bibliographie de l\'auteur' => 'Bibliographie de l\'auteur',
                     'Travaux scolaires' => 'Travaux scolaires',
+                    'livre'=>'livre',
                     'Thèse'=>'Thèse',
                 ],
             ])

@@ -4,9 +4,9 @@
     <h5>Les documents</h5>
     <div class="corps" style="width:90%; font-family:Spinner; font-size:20px;padding-top:50px;">
             {% for document in documents %}
-
-                <p style=" text-align:center; float:left;"> <div class="cercle"></div> &nbsp; <b> {{ document.type }}: </b><b style="color:rgb(219,91,67);"> {{ document.intitule }} </b> <b> <a href="{{ path('document_show', {'idLivre': livre.id,'id': document.id}) }}" target="_blank"  style="display:inline-block;float:right;"> Voir le document </a> </b></p>
-                <p> &nbsp; &nbsp; &nbsp; Ajouté le {{ document.dateEcriture|date ('Y-m-d à  H:i') }} par {{ document.auteurNom }}&nbsp;{{ document.auteurPrenom }} </p>
+                {% set vue= document.vue + 1 %}
+                <p style=" text-align:center; float:left;"> <div class="cercle"></div> &nbsp; <b> {{ document.type }}: </b><b style="color:rgb(219,91,67);"> {{ document.intitule }} </b> <b> <a href="{{ path('document_show', {'idLivre': livre.id,'id': document.id,'vue':vue}) }}" target="_blank"  style="display:inline-block;float:right;"> Voir le document </a> </b></p>
+                <p> &nbsp; &nbsp; &nbsp; Ajouté le {{ document.dateEcriture|date ('Y-m-d à  H:i') }} par {{ document.auteurNom }}&nbsp;{{ document.auteurPrenom }} , vu <b>{{ document.vue }} </b> fois.</p>
             {% else %}
                 <br> <b style="width:80%;height:100px; margin-left:430px; font-size:20px;">Aucun document n'a été ajouté</b>
             {% endfor %}

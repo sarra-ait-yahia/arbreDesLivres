@@ -18,6 +18,22 @@ use Knp\Component\Pager\PaginatorInterface;
 class CitationController extends AbstractController
 {
     /**
+     * @Route("/", name="citation_Tous", methods={"GET"})
+     */
+    public function toutCitation(CitationRepository $citationRepository,Request $request,PaginatorInterface $paginator): Response
+    {
+        $donnees=$citationRepository->findAll();
+        $citations=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            7 // Nombre de résultats par page
+        );
+        return $this->render('citation/toutCitation.html.twig', [
+            'citations' => $citations,
+        ]);
+    }
+
+    /**
      * @Route("/{idLivre}", name="citation_index", methods={"GET"})
      */
     public function index(CitationRepository $citationRepository,Request $request, LivreRepository $repo,PaginatorInterface $paginator): Response
@@ -77,6 +93,6 @@ class CitationController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('citation_index');
+        return $this->redirectToRoute('citation_Tous');
     }
 }

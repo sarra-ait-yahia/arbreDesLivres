@@ -18,6 +18,22 @@ use Knp\Component\Pager\PaginatorInterface;
 class AvisController extends AbstractController
 {
     /**
+     * @Route("/", name="avis_Tous", methods={"GET"})
+     */
+    public function avisTous(AvisRepository $avisRepository,Request $request, PaginatorInterface $paginator): Response
+    {
+        $donnees=$avisRepository->findAll();
+        $avis=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            7 // Nombre de résultats par page
+        );
+        return $this->render('avis/toutAvis.html.twig', [
+            'avis' =>$avis ,
+        ]);
+    }
+
+    /**
      * @Route("/{idLivre}", name="avis_index", methods={"GET"})
      */
     public function index(AvisRepository $avisRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
@@ -35,6 +51,7 @@ class AvisController extends AbstractController
             'livre' => $livre,
         ]);
     }
+
 
 
     /**
@@ -78,6 +95,6 @@ class AvisController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('avis_index');
+        return $this->redirectToRoute('avis_Tous');
     }
 }

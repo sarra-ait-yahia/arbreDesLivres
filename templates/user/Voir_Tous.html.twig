@@ -1,0 +1,45 @@
+{% extends 'indexBase.html.twig' %}
+
+{% block centre %}
+    <h5>Gérer les élements ajoutés </h5>
+        <div class="corps2" >
+            <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les comptes utilisateurs</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('user_index') }}">voir la liste</a> </b> </p>
+        </div>
+
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les livres</b><b style="float:right; color:rgb(63,80,72);"> <a href="{{ path('livre_index') }}">voir la liste</a> </b> </p>
+    </div>
+
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les avis</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('avis_Tous') }}">voir la liste </a></b> </p>
+</div>
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les conseils</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('conseil_Tous') }}">voir la liste</a> </b> </p>
+    </div>
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les citations</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('citation_Tous') }}">voir la liste </a></b> </p>
+    </div>
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les documents</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('document_Tous') }}">voir la liste </a></b> </p>
+    </div>
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les images</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('image_Tous') }}">voir la liste </a></b> </p>
+    </div>
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les fichiers audio</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('son_Tous') }}">voir la liste</a> </b> </p>
+    </div>
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">La liste des films</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('film_Tous') }}">voir la liste </a></b> </p>
+    </div>
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les questions</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('question_Tous') }}">voir la liste </a></b> </p>
+    </div>
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les codes barre</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('code_Tous') }}">voir la liste </a></b> </p>
+    </div>
+    <div class="corps2" >
+        <p style="padding:10px; font-family: Spinnaker;font-size: 20px;"> <b style="float:left">Les évènements</b><b style="float:right; color:rgb(63,80,72);"><a href="{{ path('evenement_Tous') }}">voir la liste </a></b> </p>
+    </div>
+    <button class="btnUser" style="margin-left:480px; margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240);"><a href="{{ path('showUser', {'id': app.user.id}) }}" >Retour au profil</a> </button>
+
+{% endblock %}

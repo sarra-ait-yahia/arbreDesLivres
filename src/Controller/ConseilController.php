@@ -18,6 +18,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConseilController extends AbstractController
 {
     /**
+     * @Route("/", name="conseil_Tous", methods={"GET"})
+     */
+    public function toutConseil(ConseilRepository $conseilRepository,Request $request,PaginatorInterface $paginator): Response
+    {
+
+        $donnees=$conseilRepository->findAll();
+        $conseil=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            7 // Nombre de résultats par page
+        );
+        return $this->render('conseil/ToutConseil.html.twig', [
+            'conseils' =>$conseil,
+        ]);
+    }
+
+    /**
      * @Route("/{idLivre}", name="conseil_index", methods={"GET"})
      */
     public function index(ConseilRepository $conseilRepository,Request $request, LivreRepository $repo, PaginatorInterface $paginator): Response
@@ -77,6 +94,6 @@ class ConseilController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('conseil_index');
+        return $this->redirectToRoute('conseil_Tous');
     }
 }

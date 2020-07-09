@@ -1,0 +1,31 @@
+{% extends 'indexBase.html.twig' %}
+
+{% block centre %}
+    <h5>Les avis </h5>
+    {% for avi in avis %}
+        <div class="corps2">
+            <div class="bandeauPetit"> <b>Ajouté le {{ avi.dateEcriture|date ('Y-m-d à  H:i') }}  par {{ avi.auteurNom }}&nbsp;{{ avi.auteurPrenom }}</b></div>
+            <div class = "zoneDeux">
+                {% if avi.note==0 %}
+                        {% for i in range(1,5) %} <img src="{{ asset('build/images/etoileVide.jpg') }}" />  {% endfor %}
+                {% elseif avi.note==5 %}
+                        {% for i in range(1,5) %} <img src="{{ asset('build/images/etoileRemplie.png') }}" />  {% endfor %}
+                {% else %}
+                        {% for i in range(1,avi.note) %} <img src="{{ asset('build/images/etoileRemplie.png') }}" />{% endfor %}
+                        {% for i in range(1,5-avi.note) %} <img src="{{ asset('build/images/etoileVide.jpg') }}" /> {% endfor %}
+                {% endif %}
+                </div>
+            <div class = "LeText">{{ avi.avisText|nl2br }}<br> <br> <b> Titre du livre: </b> <br> {{ avi.idLivre.titre }}</div>
+            {{ include('avis/_delete_form.html.twig') }}
+        </div>
+        {% else %}
+            <div class="corps2" style="width:80%;height:100px; text-align:center; font-size:20px;">
+                <br> <b> Aucun avis n'a été ajouté.</b>
+            </div>
+        {% endfor %}
+    <br> <br>
+    <b class="paginate" style="letter-spacing: .5em;"> {{ knp_pagination_render(avis) }}
+    </b>
+    <button class="btnUser" style="margin-left:480px; margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240); height:50px;"> <a href="{{ path('voir_tous') }}">Retour à la liste de gestion des éléments</a></button>
+
+        {% endblock %}

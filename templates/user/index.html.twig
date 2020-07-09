@@ -1,42 +1,31 @@
-{% extends 'base.html.twig' %}
+{% extends 'indexBase.html.twig' %}
 
-{% block title %}User index{% endblock %}
-
-{% block body %}
-    <h1>User index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>DateNaissance</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.nom }}</td>
-                <td>{{ user.prenom }}</td>
-                <td>{{ user.dateNaissance ? user.dateNaissance|date('Y-m-d H:i:s') : '' }}</td>
-              
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('user_new') }}">Create new</a>
+{% block centre %}
+    <h5>Tous les comptes utilisateurs </h5>
+    {% for user in users %}
+        {% if user.roles.role == "user" %}
+    <div class="corps2" >
+        <div class="bandeauPetit"> <b>Crée le {{ user.dateEcriture|date ('Y-m-d à  H:i') }}  par {{ user.nom }}&nbsp;{{ user.prenom }}</b></div>
+        <div class = "zoneDeux">
+            <b>{{ user.email }}</b>
+        </div>
+        <div class = "LeText"> <b> Les livres ajoutés par ce compte:</b><br>
+            {% for livre in user.livres %}
+            <p> <div class="cercle"></div> &nbsp; <b style="color:rgb(219,91,67);"> {{ livre.titre }} </b>, ajouté le {{ livre.dateEcriture|date ('Y-m-d à  H:i') }}</p>
+            {% else %} <br>
+                Aucun livre n'a été ajouté par cet utilisateur.
+            {% endfor %}
+             {{ include('user/_delete_form.html.twig') }}
+            </div>
+    </div>
+        {%  endif %}
+    {% else %}
+    <div class="corps2" >
+        <b> Aucun compte n'a été ajouté</b>
+    </div>
+    {% endfor %}
+    <br>
+    <b class="paginate"> {{ knp_pagination_render(users) }}
+    </b> <br>
+    <button class="btnUser" style="margin-left:480px; margin-top:50px; margin-bottom:80px;background-color:rgb(241,239,240); height:50px;"> <a href="{{ path('voir_tous') }}">Retour à la liste de gestion des éléments</a></button>
 {% endblock %}

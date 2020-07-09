@@ -9,7 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Avis|null find($id, $lockMode = null, $lockVersion = null)
  * @method Avis|null findOneBy(array $criteria, array $orderBy = null)
- * @method Avis[]    findAll()
  * @method Avis[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class AvisRepository extends ServiceEntityRepository
@@ -19,13 +18,17 @@ class AvisRepository extends ServiceEntityRepository
         parent::__construct($registry, Avis::class);
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('dateEcriture' => 'DESC'));
+    }
 
     public function findByLivre($livre)
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.idLivre = :val')
             ->setParameter('val', $livre)
-            ->orderBy('a.id', 'ASC')
+            ->orderBy('a.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;

@@ -9,7 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Document|null find($id, $lockMode = null, $lockVersion = null)
  * @method Document|null findOneBy(array $criteria, array $orderBy = null)
- * @method Document[]    findAll()
  * @method Document[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class DocumentRepository extends ServiceEntityRepository
@@ -19,6 +18,10 @@ class DocumentRepository extends ServiceEntityRepository
         parent::__construct($registry, Document::class);
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('dateEcriture' => 'DESC'));
+    }
     // /**
     //  * @return Document[] Returns an array of Document objects
     //  */

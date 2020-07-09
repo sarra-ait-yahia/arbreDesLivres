@@ -9,7 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Citation|null find($id, $lockMode = null, $lockVersion = null)
  * @method Citation|null findOneBy(array $criteria, array $orderBy = null)
- * @method Citation[]    findAll()
  * @method Citation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class CitationRepository extends ServiceEntityRepository
@@ -19,12 +18,17 @@ class CitationRepository extends ServiceEntityRepository
         parent::__construct($registry, Citation::class);
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('dateEcriture' => 'DESC'));
+    }
+
     public function findByLivre($livre)
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.idLivre = :val')
             ->setParameter('val', $livre)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('c.id', 'DESC')
             ->getQuery()
             ->getResult()
             ;

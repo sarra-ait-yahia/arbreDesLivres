@@ -41,6 +41,28 @@ class ReponseController extends AbstractController
     }
 
     /**
+     * @Route("/{idLivre}/{idQuestion}/tous", name="reponse_tous", methods={"GET"})
+     */
+    public function toutReponse(ReponseRepository $reponseRepository,Request $request, QuestionRepository $repoQ, LivreRepository $repo, PaginatorInterface $paginator): Response
+    {
+        $livreId=$request->attributes->get('idLivre');
+        $livre= $repo->findOneBy(array('id' =>$livreId ));
+        $questionId=$request->attributes->get('idQuestion');
+        $question= $repoQ->findOneBy(array('id' =>$questionId ));
+        $donnees=$reponseRepository->findByQuestion($question);
+        $reponse=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
+        );
+        return $this->render('reponse/toutReponse.html.twig', [
+            'reponses' =>$reponse ,
+            'question'=> $question,
+            'livre' => $livre,
+        ]);
+    }
+
+    /**
      * @Route("/new/{idLivre}/{idQuestion}", name="reponse_new", methods={"GET","POST"})
      */
     public function new(Request $request, LivreRepository $repoL, \Swift_Mailer $mailer,QuestionRepository $repoQ,ReponseRepository $reponseRepository,PaginatorInterface $paginator): Response
@@ -149,16 +171,29 @@ class ReponseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="reponse_delete", methods={"DELETE"})
+     * @Route("/{id}/{idLivre}/{idQuestion}", name="reponse_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Reponse $reponse): Response
+    public function delete(ReponseRepository $reponseRepository,Request $request, QuestionRepository $repoQ, LivreRepository $repo, PaginatorInterface $paginator, Reponse $reponse): Response
     {
         if ($this->isCsrfTokenValid('delete'.$reponse->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($reponse);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('reponse_index');
+        $livreId=$request->attributes->get('idLivre');
+        $livre= $repo->findOneBy(array('id' =>$livreId ));
+        $questionId=$request->attributes->get('idQuestion');
+        $question= $repoQ->findOneBy(array('id' =>$questionId ));
+        $donnees=$reponseRepository->findByQuestion($question);
+        $reponse=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
+        );
+        return $this->render('reponse/toutReponse.html.twig', [
+            'reponses' =>$reponse ,
+            'question'=> $question,
+            'livre' => $livre,
+        ]);
     }
 }

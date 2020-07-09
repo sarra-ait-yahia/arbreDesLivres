@@ -4,6 +4,9 @@
      <div class="corps" style="width:80%">
        <div class="tableUser" style="margin-top:-30px; margin-bottom:30px;">
        <h2 style="color:#3f5048; font-size:40px; margin-top:70px; text-align:center;">Bonjour {{ user.nom }}  {{ user.prenom }} </h2>
+           {% if user.roles.role=="admin" %}
+           <b style="color:#3f5048; font-size:20px;text-align:center;">Vous êtes administrateur</b><br> <br>
+           {% endif %}
 
     <table class="table" style="text-align:center;position:center;margin:auto; margin-bottom:40px;">
         <tbody>
@@ -29,9 +32,14 @@
             </tr>
         </tbody>
     </table>
+  {% if user.roles.role=="admin" %}
+      <button class="btnUser" style="background-color:rgb(241,239,240);"> <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier vos informations </a></button> &nbsp &nbsp
+      <button class="btnUser" style="background-color:rgb(241,239,240);"> <a href="{{ path('voir_tous')}}"> Gérer les éléments ajoutés </a></button> &nbsp &nbsp
+  {% else %}
    <button class="btnUser" style="background-color:rgb(241,239,240);"> <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier vos informations </a></button> &nbsp &nbsp
    <button class="btnUser" style="background-color:rgb(241,239,240);"> <a href="{{ path('livre_new')}}"> Ajouter un livre </a></button> &nbsp &nbsp
    <button class="btnUser" style="background-color:rgb(241,239,240);"> <a href="{{ path('livre_showLivres' )}}"> Vos ajouts de livres</a></button>
+           {% endif %}
        </div>
        </div>
 {% endblock %}

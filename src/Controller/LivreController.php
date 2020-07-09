@@ -44,7 +44,7 @@ class LivreController extends AbstractController
     /**
      * @Route("/", name="livre_showLivres", methods={"GET"})
      */
-    public function index(LivreRepository $livreRepository,PaginatorInterface $paginator,Request $request): Response
+    public function showLivres(LivreRepository $livreRepository,PaginatorInterface $paginator,Request $request): Response
     {
         $donnees=$livreRepository->findLivresOfUser($this->getUser());
         $livres=$paginator->paginate(
@@ -57,6 +57,21 @@ class LivreController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/index", name="livre_index", methods={"GET"})
+     */
+    public function index(LivreRepository $livreRepository,PaginatorInterface $paginator,Request $request): Response
+    {
+        $donnees=$livreRepository->findAll();
+        $livres=$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+        return $this->render('livre/indexTousLivres.html.twig', [
+            'livres'=>$livres,
+        ]);
+    }
     /**
      * @Route("/{id}/showdetailLivreBase", name="showdetailLivreBase", methods={"GET","POST"})
      */
@@ -104,7 +119,7 @@ class LivreController extends AbstractController
                 'nbimage'=>0,
                 'nbfilm'=>0,
                 'nbdocument'=>0,
-                'nbson'=>0,
+                'nbson'=>1,
                 'livre'=>$livre,
                 'son'=>'uploads/'.$nomFichier,
             ]);
@@ -213,6 +228,7 @@ class LivreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $document->setIdLivre($livre);
             $document->setDateEcriture(new \DateTime('now'));
+            $document->setVue(0);
             $fichier=$document->getFichier();
             $nomFichier= md5(uniqid()).'.'.$fichier->guessExtension();
             $fichier->move($this->getParameter('upload_directory'), $nomFichier);
@@ -933,6 +949,51 @@ class LivreController extends AbstractController
             'livre' => $livre,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{id}", name="livre_delete",  methods={"DELETE"})
+     */
+    public function delete(Request $request, Livre $livre): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$livre->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            foreach($livre->getTousLesAvis() as $avis)
+                  $entityManager->remove($avis);
+            foreach($livre->getConseils() as $conseil)
+                   $entityManager->remove($conseil);
+            foreach($livre->getCitations() as $citation)
+                   $entityManager->remove($citation);
+            foreach($livre->getDocuments() as $document)
+                    $entityManager->remove($document);
+            foreach($livre->getImages() as $image)
+                    $entityManager->remove($image);
+            foreach($livre->getSons() as $son)
+                    $entityManager->remove($son);
+            foreach($livre->getFilms() as $film)
+                   $entityManager->remove($film);
+            foreach($livre->getCodesBarre() as $code)
+                   $entityManager->remove($code);
+            foreach($livre->getEvenements() as $event)
+                   $entityManager->remove($event);
+            $questions=$livre->getQuestions();
+            foreach($questions as $question){
+                foreach($question->getReponses() as $reponse)
+                        $entityManager->remove($reponse);
+            }
+            $entityManager->flush();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            foreach($livre->getQuestions() as $question)
+                     $entityManager->remove($question);
+            $entityManager->flush();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($livre);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('livre_index');
     }
 
 }
